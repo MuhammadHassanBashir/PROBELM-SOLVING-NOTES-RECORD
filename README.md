@@ -11,8 +11,9 @@ I was unable to access the cluster.
 I was unable to push the docker images from my local system ko GCP GCR..
 
 ## Solution
-  
-  
+
+First thing first set project
+ 
   gcloud config set project <project-id>
   gcloud auth login
 
