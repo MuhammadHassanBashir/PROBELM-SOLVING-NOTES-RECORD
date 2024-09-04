@@ -94,7 +94,18 @@ but i was mistakenly using **sudo** with docker push command. it mean docker is 
 
 **so once i removed sudo with docker push command. I can successfully push image to GCP GCR. because docker now uses normal user that are also a part of docker group** 
 
+# PROBLEM 3
+
+I had the access of jenkins vm. But because of OS re-installation i lost it from my terminal. 
+Solution:
   
+Because i knew the jenkins vm username and password.. I have the below command to get vm access again.
+
+  ssh hasasn@jenkins-vm ip or dns address
+  or it ask you to give password. After giving password you can get access of your vm..
+  
+  ssh-copy-id hassan@jenkins-vm ip or dns address         
+  it will copying the key to the remote server
   
 
   
