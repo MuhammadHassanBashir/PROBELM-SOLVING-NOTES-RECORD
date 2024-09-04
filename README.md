@@ -52,6 +52,12 @@ Make it start if it is not running
 
     sudo systemctl start docker
 
+TAG-IMAGE AND PUSH IMAGE:
+
+     docker tag lunch-benefits-services:latest gcr.io/pcpeprod/new-repository:latest
+     docker push gcr.io/pcpeprod/new-repository:latest
+
+
 Check Docker Configuration
 Ensure that Docker is configured to use gcloud for authentication:
 
@@ -101,11 +107,14 @@ Solution:
   
 Because i knew the jenkins vm username and password.. I have the below command to get vm access again.
 
-  ssh hasasn@jenkins-vm ip or dns address
+    ssh hasasn@jenkins-vm ip or dns address
 or it ask you to give password. After giving password you can get access of your vm..
   
-  ssh-copy-id hassan@jenkins-vm ip or dns address         
+    ssh-copy-id hassan@jenkins-vm ip or dns address         
 it will copying the key to the remote server
   
+# PROBLEM 4
+
+
 
   
