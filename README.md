@@ -17,7 +17,7 @@ First thing first set project
    gcloud config set project <project-id>
    gcloud auth login
 
--  Check docker is installed on your system or not. If not then install it with below command
+Check docker is installed on your system or not. If not then install it with below command
 
     sudo apt install docker.io
 
@@ -39,9 +39,9 @@ now add authentication for docker. In gcp it is require. after this you can have
   or 
   gcloud auth configure-docker gcr.io
 
-- Ensure that your Google Cloud IAM permissions are correct for your gcp user. Verify permission you need to have **owner** or **roles/artifactregistry.writer** role.
+Ensure that your Google Cloud IAM permissions are correct for your gcp user. Verify permission you need to have **owner** or **roles/artifactregistry.writer** role.
 
-- You can check the permissions with the following command:
+You can check the permissions with the following command:
   
     gcloud projects get-iam-policy <project-id>
 
