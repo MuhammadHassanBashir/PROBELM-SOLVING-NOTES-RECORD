@@ -30,13 +30,13 @@ now refresh docker group for reflecting effect
 
 verify your user in docker group
 
-  grep docker /etc/group
+    grep docker /etc/group
 
 now add authentication for docker. In gcp it is require. after this you can have access of GCP GCR for pushing images..
    
-  gcloud auth configure-docker 
-  or 
-  gcloud auth configure-docker gcr.io
+    gcloud auth configure-docker 
+    or 
+    gcloud auth configure-docker gcr.io
 
 Ensure that your Google Cloud IAM permissions are correct for your gcp user. Verify permission you need to have **owner** or **roles/artifactregistry.writer** role.
 
@@ -44,7 +44,7 @@ You can check the permissions with the following command:
   
     gcloud projects get-iam-policy <project-id>
 
-check docker service status
+    check docker service status
 
     sudo systemctl status docker
 
@@ -55,20 +55,20 @@ Make it start if it is not running
 Check Docker Configuration
 Ensure that Docker is configured to use gcloud for authentication:
 
-  cat ~/.docker/config.json
+    cat ~/.docker/config.json
 
   You should see entries similar to:
 
-  {
-    "credHelpers": {
-      "gcr.io": "gcloud",
-      "us.gcr.io": "gcloud",
-      "eu.gcr.io": "gcloud",
-      "asia.gcr.io": "gcloud",
-      "staging-k8s.gcr.io": "gcloud",
-      "marketplace.gcr.io": "gcloud"
+    {
+      "credHelpers": {
+        "gcr.io": "gcloud",
+        "us.gcr.io": "gcloud",
+        "eu.gcr.io": "gcloud",
+        "asia.gcr.io": "gcloud",
+        "staging-k8s.gcr.io": "gcloud",
+        "marketplace.gcr.io": "gcloud"
+      }
     }
-  }
 
 Verify Your Authentication
 
