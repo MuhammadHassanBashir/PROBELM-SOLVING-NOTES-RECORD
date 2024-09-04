@@ -72,15 +72,15 @@ Ensure that Docker is configured to use gcloud for authentication:
 
 Verify Your Authentication
 
-  Ensure you're properly authenticated:
+Ensure you're properly authenticated:
 
-  gcloud auth print-access-token
+    gcloud auth print-access-token
 
-  if you can get token, it's mean your docker are able to communicate with GCP GCR.
+    if you can get token, it's mean your docker are able to communicate with GCP GCR.
 
 You can also try using this token to log in manually:
 
-  gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+    gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
   
   
