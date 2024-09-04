@@ -13,9 +13,9 @@ I was unable to push the docker images from my local system ko GCP GCR..
 ## Solution
 
 First thing first set project
- 
-   gcloud config set project <project-id>
-   gcloud auth login
+  
+  gcloud config set project <project-id>
+  gcloud auth login
 
 Check docker is installed on your system or not. If not then install it with below command
 
