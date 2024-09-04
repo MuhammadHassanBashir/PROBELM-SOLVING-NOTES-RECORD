@@ -102,10 +102,10 @@ Solution:
 Because i knew the jenkins vm username and password.. I have the below command to get vm access again.
 
   ssh hasasn@jenkins-vm ip or dns address
-  or it ask you to give password. After giving password you can get access of your vm..
+or it ask you to give password. After giving password you can get access of your vm..
   
   ssh-copy-id hassan@jenkins-vm ip or dns address         
-  it will copying the key to the remote server
+it will copying the key to the remote server
   
 
   
