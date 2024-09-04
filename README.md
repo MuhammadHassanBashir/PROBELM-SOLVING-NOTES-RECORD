@@ -82,6 +82,18 @@ You can also try using this token to log in manually:
 
     gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
+## Mistake
+
+I had added my user in docker group it mean with normal user i can push docker images 
+
+like:
+
+    docker push <image-name>
+
+but i was mistakenly using **sudo** with docker push command. it mean docker is now trying to use root user for pushing image on gcr.. but root user is not add in docker group..
+
+**so once i removed sudo with docker push command. I can successfully push image to GCP GCR. because docker now uses normal user that are also a part of docker group** 
+
   
   
 
