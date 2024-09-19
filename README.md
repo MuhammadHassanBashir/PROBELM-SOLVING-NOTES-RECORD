@@ -131,7 +131,7 @@ Traffic flow: from fronted to backend kubernetes serivce(loadbalancer) on toport
 
 **troubleshoot**: 
 
-  1- if service not send traffic to deployment and you want to see if the code is running or not, then you can see my port-forwarding the **pod** on port on which the code is running(suppose code is running on 8000 then you should port forward the pod to 8000). and try and see the code respose **locally** from **browser** or from terminal with **curl**  with port on which code is running...
+  1- if service not send traffic to deployment and you want to see if the code is running or not, then you can see my port-forwarding the **pod** on port on which the code is running(suppose code is running on 8000 then you should port forward the pod to 8000). and try and see the code respose **locally** from **browser** or from terminal with **curl**  with port on which code is running... you can also check it from the postman.
 
   like port forwarding command:   **kubectl port-forward pod/pod-name anyport(like 7171):codeport(like 8000)**
   go to browser and see the response: **http://localhost:7171** and for terminal use **curl http://localhost:7171** 
@@ -150,40 +150,41 @@ Traffic flow: from fronted to backend kubernetes serivce(loadbalancer) on toport
 
 
 most clearn version:
+-------------------
 
-            Incident Report: Port Mismatch Causing Traffic Issue to Deployment
-      Incident Summary: The service wasn't passing traffic to the deployment due to a port mismatch issue. Upon investigation, I found that the code was running on port 8000 (confirmed by checking main.py), but the container was exposing port 5000 (confirmed by reviewing the Dockerfile). In the Kubernetes deployment and service templates, both the containerPort and targetPort were set to 5000, which was incorrect.
+**Incident Report: Port Mismatch Causing Traffic Issue to Deployment**
+      
+    Incident Summary: The service wasn't passing traffic to the deployment due to a port mismatch issue. Upon investigation, I found that the code was running on port 8000 (confirmed by checking main.py), but the container was exposing port 5000 (confirmed by reviewing the Dockerfile). In the Kubernetes deployment and service templates, both the containerPort and targetPort were set to 5000, which was incorrect.
       
       Key Lesson: Always ensure that the port exposed by the container matches the port on which the code is running. If the code is running on port 8000, the container should expose port 8000, and the Kubernetes deployment and service should also set the containerPort and targetPort to 8000.
       
-      Correct Approach in Docker and Kubernetes
-      1. Kubernetes Configuration
+Correct Approach in Docker and Kubernetes
+      
+1. Kubernetes Configuration
+
       If the code runs on port 8000 (you can check this by looking at the code, e.g., main.py for Python), then:
+   
+Dockerfile: Ensure the Dockerfile exposes the correct port for the container:
       
-      Dockerfile: Ensure the Dockerfile exposes the correct port for the container:
-      
-      dockerfile
-      Copy code
       # Expose the port on which the code is running (e.g., 8000)
       EXPOSE 8000
-      Kubernetes Deployment Template: Set the containerPort in the deployment to match the port on which the code is running:
       
-      yaml
-      Copy code
+Kubernetes Deployment Template: Set the containerPort in the deployment to match the port on which the code is running:
+      
       containers:
       - name: your-container-name
         image: your-image-name
         ports:
         - containerPort: 8000  # This should match the code port
-      Kubernetes Service Template: Set the targetPort to the same port on which the container is running (in this case, 8000). The port (typically 80 for HTTP traffic) forwards traffic to the container's targetPort.
       
-      yaml
-      Copy code
+Kubernetes Service Template: Set the targetPort to the same port on which the container is running (in this case, 8000). The port (typically 80 for HTTP traffic) forwards traffic to the container's targetPort.
+      
       spec:
         ports:
         - port: 80          # Frontend service port (commonly set to 80 for HTTP traffic)
           targetPort: 8000   # Container's port, which matches the code port
-      Traffic Flow Explanation:
+      
+Traffic Flow Explanation:
       Traffic is routed from the frontend (e.g., LoadBalancer) to the Kubernetes service on port 80.
       The service forwards traffic to the deployment's targetPort (8000).
       Inside the deployment, the container listens on port 8000, where the code is running.
@@ -237,17 +238,3 @@ most clearn version:
       
       Conclusion
       Always ensure the container port and the code port are aligned throughout the setup in both Docker and Kubernetes. Misconfigured ports will cause traffic to not reach your services properly.
-
-
-
-
-
-
-    
-    
-
-  
-
-
-
-  
