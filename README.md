@@ -185,25 +185,27 @@ Kubernetes Service Template: Set the targetPort to the same port on which the co
           targetPort: 8000   # Container's port, which matches the code port
       
 Traffic Flow Explanation:
+      
       Traffic is routed from the frontend (e.g., LoadBalancer) to the Kubernetes service on port 80.
       The service forwards traffic to the deployment's targetPort (8000).
       Inside the deployment, the container listens on port 8000, where the code is running.
       Troubleshooting Steps
-      Check if Code is Running:
+      
+Check if Code is Running:
       
       If the service isn’t sending traffic to the deployment, verify if the code is running by port-forwarding to the pod on the port where the code runs (e.g., 8000).
       Example command to forward pod traffic to your local machine:
       
-      bash
-      Copy code
+
       kubectl port-forward pod/<pod-name> 7171:8000
-      Then check the response locally in your browser:
+     
+ Then check the response locally in your browser:
+
       http://localhost:7171
       
       Or use curl from the terminal:
       
-      bash
-      Copy code
+      
       curl http://localhost:7171
       This helps confirm if the code inside the pod is working correctly.
       
@@ -211,30 +213,28 @@ Traffic Flow Explanation:
       
       If you need to make the service public, change the annotation in your Kubernetes service from Internal to External. This will assign a public IP, which you can access in the browser:
       
-      bash
-      Copy code
+     
       http://<public-ip-of-service>
       If the service is correctly configured, it should respond. Otherwise, it will confirm there’s a port or label mismatch between the service and deployment.
       
       Check Logs: You can continuously check the logs to troubleshoot further:
       
-      bash
-      Copy code
+     
       kubectl logs pod/<pod-name> -f
       Correct Approach for Docker
       Dockerfile: Ensure the exposed port in the Dockerfile matches the port the code is running on (e.g., 8000):
       
-      dockerfile
-      Copy code
+dockerfile
+     
       EXPOSE 8000
       Docker Run Command: When starting a container, map any external port to the internal container port where the code is running.
       
       Example command:
       
-      bash
-      Copy code
+
       docker run --port 7171:8000
       This will map port 7171 on your local machine to port 8000 inside the container, allowing you to access the running code locally on http://localhost:7171.
       
-      Conclusion
+Conclusion
+
       Always ensure the container port and the code port are aligned throughout the setup in both Docker and Kubernetes. Misconfigured ports will cause traffic to not reach your services properly.
