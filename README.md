@@ -111,9 +111,17 @@ Because i knew the jenkins vm username and password.. I have the below command t
 or it ask you to give password. After giving password you can get access of your vm..
   
     ssh-copy-id hassan@jenkins-vm ip or dns address         
-it will copying the key to the remote server
+it will copying the key to the remote server..
+
+with this i got the access. or because i had set password against my username. so i can simplily
   
-# PROBLEM 4
+# PROBLEM 4 Request not passed through kubernetes service to deployment..
+
+Solution:
+
+  Basically service was not being passed through traffic to deployment. **It was a port miss-match issue. My code was running in port 8000. I have confirmed this by veiwing main.py. And my container port expose port 5000. I have confirm this by veiwing Dockerfile. And I have also written containerport and targetport my kubernetes deployment and service templates was    
+
+  
 
 
 
