@@ -149,7 +149,7 @@ Traffic flow: from fronted to backend kubernetes serivce(loadbalancer) on toport
   docker run --port externalport:internetport(containerport, same on which code is running) 
 
 
-most clearn version:
+Most clearn version:
 -------------------
 
 **Incident Report: Port Mismatch Causing Traffic Issue to Deployment**
