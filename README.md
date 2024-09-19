@@ -119,7 +119,20 @@ with this i got the access. or because i had set password against my username. s
 
 Solution:
 
-  Basically service was not being passed through traffic to deployment. **It was a port miss-match issue. My code was running in port 8000. I have confirmed this by veiwing main.py. And my container port expose port 5000. I have confirm this by veiwing Dockerfile. And I have also written containerport and targetport my kubernetes deployment and service templates was    
+  Basically service was not being passed through traffic to deployment. **It was a port miss-match issue. My code was running on port 8000. I have confirmed this by veiwing main.py. And my container port expose port 5000. I have confirm this by veiwing Dockerfile. And I have also written containerport and targetport my kubernetes deployment and service templates was 5000. it was a wrong approach.
+
+**Always remember to set the port for container to the port on which code is running** mean if code is running on 8000 then the container port should also be set on 8000.
+
+what to do this in docker and kubernetes...
+
+**kubernetes** if code is running on 8000(for this see code file like main.py for python) then in dockerfile expose port for container should set on same 8000 port regardless whatever is set in entrypoint(set same code pod here.) and in kubernetes deployment template containerport(it is the port for the container) is also set to same 8000 and in kubernetes service template targetport is also set to 8000...
+
+Traffic flow: from fronted to backend kubernetes serivce(loadbalancer) on toport(for most case we set port 80) to targetport of container on 8000  to code running on same 8000 port.. 
+
+**Docker** if code is running on 8000(for this see code file like main.py for python) then in dockerfile expose port for container should set on same 8000 port regardless whatever is set in entrypoint(set same code pod here.) and for starting the container you can map any external port to same internal container port during running the container using the docker run command...
+
+  docker run --port externalport:internetport(containerport, same on which code is running)     
+    
 
   
 
