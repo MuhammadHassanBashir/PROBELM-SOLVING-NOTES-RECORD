@@ -238,3 +238,7 @@ dockerfile
 Conclusion
 
       Always ensure the container port and the code port are aligned throughout the setup in both Docker and Kubernetes. Misconfigured ports will cause traffic to not reach your services properly.
+
+## scp command to send file to remote vm 
+
+  scp  cors.lua Dockerfile haproxy.cfg hassan@34.45.113.234:/home/hassan
