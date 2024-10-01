@@ -242,3 +242,58 @@ Conclusion
 ## scp command to send file to remote vm 
 
   scp  cors.lua Dockerfile haproxy.cfg hassan@34.45.113.234:/home/hassan
+
+## i was unable to establish communication b/w 2 contianer.. 
+
+  followed this steps...
+
+  When running both HAProxy and the backend service in separate containers, referencing localhost in HAProxy's configuration won't work as expected. This is because localhost refers to the container itself, not to the host machine or other containers. In Docker, containers have isolated networks, so you need to connect them properly for HAProxy to communicate with the backend service.
+
+    Here’s how you can resolve the issue:
+    
+    1. Use Docker Networking
+    Docker containers can communicate with each other via network names, so you need to make sure both HAProxy and your backend service are on the same Docker network.
+    
+    Step 1: Create a Docker network
+    bash
+    Copy code
+    docker network create my_network
+    Step 2: Run your backend service on this network
+    For example, if your backend service is an HTTP server running on port 8000:
+    
+    bash
+    Copy code
+    docker run --name backend_service --network my_network -p 8000:8000 my_backend_image
+    Step 3: Run HAProxy on the same network
+    Now, run your HAProxy container on the same network:
+    
+    bash
+    Copy code
+    docker run --name haproxy1 --network my_network -p 80:80 haproxy:v1
+    2. Update HAProxy Configuration
+    In your haproxy.cfg, instead of using localhost, use the backend service’s container name (backend_service in this example). Docker's internal DNS will resolve the container name to its IP address.
+    
+    Change this line in your backend web_backend section:
+    
+    cfg
+    Copy code
+    server local_server backend_service:8000 check
+    3. Ensure Backend is Running and Accessible
+    Make sure the backend service is properly exposed on port 8000 and running. You can test this by accessing the backend container directly:
+    
+    bash
+    Copy code
+    docker exec -it backend_service curl http://localhost:8000
+    This will help verify that the service is running inside the container.
+    
+    Full Example Configuration for HAProxy
+    Here’s how your haproxy.cfg would look with the backend container name:
+    
+    cfg
+    Copy code
+    backend web_backend
+        mode http
+        server local_server backend_service:8000 check
+    Make sure both containers (HAProxy and the backend) are running on the same Docker network, and the backend service is up and accessible.
+    
+    After making these changes, HAProxy should be able to communicate with your backend service without the "Connection refused" error. Let me know if this resolves your issue!
