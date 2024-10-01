@@ -367,7 +367,13 @@ with this i got the access. or because i had set password against my username. s
       Summary
       So, yes, you need to specify the internal port (80 in this case) in your HAProxy backend configuration to ensure that HAProxy can correctly route the requests to the NGINX service running in another container.
       
-      
+## Dockerfile understanding
+
+    When working locally, such as setting up HAProxy, you need to package it on your local system. This means necessary files and configurations will be placed in directories like /etc/haproxy after the installation of the HAProxy package.
+    
+    However, if you want to perform the same setup within a Docker container using a Dockerfile, you can specify a base image in the FROM directive. For example, by defining FROM haproxy:2.4-bookworm, you leverage the base image, which automatically provides the environment and necessary files without needing to install them manually like you do in your local system.
+    
+    In addition, you can install any other required packages using the RUN command in the Dockerfile. This allows you to customize the container's environment as needed, all while ensuring that the base image takes care of the core configurations and dependencies.
       
       
       
