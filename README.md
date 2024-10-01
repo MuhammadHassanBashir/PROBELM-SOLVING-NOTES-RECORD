@@ -243,7 +243,7 @@ Conclusion
 
   scp  cors.lua Dockerfile haproxy.cfg hassan@34.45.113.234:/home/hassan
 
-## i was unable to establish communication b/w 2 contianer.. 
+## I was unable to establish communication b/w 2 contianer.. 
 
   followed this steps...
 
