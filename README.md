@@ -374,6 +374,17 @@ with this i got the access. or because i had set password against my username. s
     However, if you want to perform the same setup within a Docker container using a Dockerfile, you can specify a base image in the FROM directive. For example, by defining FROM haproxy:2.4-bookworm, you leverage the base image, which automatically provides the environment and necessary files without needing to install them manually like you do in your local system.
     
     In addition, you can install any other required packages using the RUN command in the Dockerfile. This allows you to customize the container's environment as needed, all while ensuring that the base image takes care of the core configurations and dependencies.
+
+## jenkins job catagory
+
+  We can categorize jobs in Jenkins by using Views. Views allow us to organize and group related jobs, making it easier to manage and access them.
+
+
+
+
+
+
+
       
       
       
