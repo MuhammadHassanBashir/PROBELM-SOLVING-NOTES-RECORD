@@ -412,8 +412,44 @@ with this i got the access. or because i had set password against my username. s
     or 
 
     Most likely the problem is not related to missing CRDs but to the kubernetes version. I assume you are using the latest K3S version, which is v1.25.4. **PodDisruptionBudget was moved from policy/v1beta1 to policy/v1 in version v1.25.** As the Envoy helm chart that you are using does not seem to be actively maintained, probably you will have to downgrade K3S or find a different chart.
+
+
+## Calling from one service to another service with FQDN in the same namespace..
+
+    For this we can use **<service-name>.<namespace>.svc.cluster.local**
+
+    in my case it would be come **nginx-service.default.svc.cluster.local**
+
+    or you can also give service name simply... to the service which need to communicate to the other service... like in my case mny envoy proxy service need to communicate nginx service running as envoy proxy backend... so i can give nginx service name or FQDN to envoy proxy. so envoy proxy can communicate with ngnix service...
+
+
+    With FQDN
+    ---------
     
-    
+    clusters:
+          - name: service_google
+            connect_timeout: 0.25s
+            type: LOGICAL_DNS
+            dns_lookup_family: V4_ONLY
+            lb_policy: ROUND_ROBIN
+            hosts:
+              - socket_address:
+                  address: nginx-service.default.svc.cluster.local
+                  port_value: 80 
+
+    OR WITH NAME
+    ------------ 
+        
+    clusters:
+          - name: service_google
+            connect_timeout: 0.25s
+            type: LOGICAL_DNS
+            dns_lookup_family: V4_ONLY
+            lb_policy: ROUND_ROBIN
+            hosts:
+              - socket_address:
+                  address: nginx-service
+                  port_value: 80
 
 
 
