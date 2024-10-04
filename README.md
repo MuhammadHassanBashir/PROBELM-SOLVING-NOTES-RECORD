@@ -379,7 +379,41 @@ with this i got the access. or because i had set password against my username. s
 
   We can categorize jobs in Jenkins by using Views. Views allow us to organize and group related jobs, making it easier to manage and access them.
 
+## Got problem during envoy install using helm
 
+  Problem:
+
+  helm install envoy ./envoy/
+  
+  Error: INSTALLATION FAILED: unable to build kubernetes objects from release manifest: resource mapping not found for name: "envoy" namespace: "" from "": no matches for kind "PodDisruptionBudget" in version "policy/v1beta1"
+  ensure CRDs are installed first
+
+
+  solution:
+
+      The error you are encountering, specifically related to PodDisruptionBudget and policy/v1beta1, happens because the PodDisruptionBudget API version has been updated in Kubernetes. Starting from Kubernetes version 1.21, PodDisruptionBudget has moved from policy/v1beta1 to policy/v1.
+
+    Go to the template > PodDisruptionBudget.yaml and change api version from policy/v1beta1 to policy/v1.
+
+    new template:
+
+    apiVersion: policy/v1
+    kind: PodDisruptionBudget
+    metadata:
+      name: envoy
+    spec:
+      minAvailable: 1
+      selector:
+        matchLabels:
+          app: envoy
+
+
+    
+    or 
+
+    Most likely the problem is not related to missing CRDs but to the kubernetes version. I assume you are using the latest K3S version, which is v1.25.4. **PodDisruptionBudget was moved from policy/v1beta1 to policy/v1 in version v1.25.** As the Envoy helm chart that you are using does not seem to be actively maintained, probably you will have to downgrade K3S or find a different chart.
+    
+    
 
 
 
