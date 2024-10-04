@@ -451,6 +451,11 @@ with this i got the access. or because i had set password against my username. s
                   address: nginx-service
                   port_value: 80
 
+## kubectl port forwarding command format
+
+  kubectl port-forward <resource_type>/<resource_name> <local_port>:<remote_port>
+
+
 
 
 
