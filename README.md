@@ -455,6 +455,13 @@ with this i got the access. or because i had set password against my username. s
 
   kubectl port-forward <resource_type>/<resource_name> <local_port>:<remote_port>
 
+## cluster node version upgration
+
+  -  First drain the node with gcloud command, by doing this cluster will not send any traffic to the draining node... and will move node resources to master node. and make the node **cordan**.
+  -  After this create a new node pull having latest node version. Once done uncordan the node...                
+
+    these are the process for node upgradion. refer to the documentation before using these steps.
+
 
 
 
