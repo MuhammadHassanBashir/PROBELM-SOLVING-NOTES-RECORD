@@ -115,7 +115,7 @@
     
     with this i got the access. or because i had set password against my username. so i can simplily
       
-# PROBLEM 4 Request not passed through kubernetes service to deployment..
+#### PROBLEM 4: Request not passed through kubernetes service to deployment..
 
     Solution:
     
@@ -239,11 +239,11 @@
     
           Always ensure the container port and the code port are aligned throughout the setup in both Docker and Kubernetes. Misconfigured ports will cause traffic to not reach your services properly.
 
-## scp command to send file to remote vm 
+#### Scp command to send file to remote vm 
 
   scp  cors.lua Dockerfile haproxy.cfg hassan@34.45.113.234:/home/hassan
 
-## I was unable to establish communication b/w 2 contianer.. 
+#### I was unable to establish communication b/w 2 contianer.. 
 
   followed this steps...
 
@@ -278,7 +278,7 @@
     server local_server <backend container name or ip>:<backend contianer internel port> check
     server local_server backend_service:80 check
     
-## haproxy backend configuration tips.. or communication from localhost to docker container and from docker container to other docker contianer..
+#### Haproxy backend configuration tips.. or communication from localhost to docker container and from docker container to other docker contianer..
 
       Accessing Containers with HAProxy
 
@@ -414,7 +414,7 @@
     Most likely the problem is not related to missing CRDs but to the kubernetes version. I assume you are using the latest K3S version, which is v1.25.4. **PodDisruptionBudget was moved from policy/v1beta1 to policy/v1 in version v1.25.** As the Envoy helm chart that you are using does not seem to be actively maintained, probably you will have to downgrade K3S or find a different chart.
 
 
-## Calling from one service to another service with FQDN in the same namespace..
+#### Calling from one service to another service with FQDN in the same namespace..
 
     For this we can use **<service-name>.<namespace>.svc.cluster.local**
 
