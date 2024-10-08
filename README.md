@@ -462,6 +462,19 @@
 
     these are the process for node upgradion. refer to the documentation before using these steps.
 
+### ingress issues
+
+    - GCP will take 10 to 15 mins for properly setting up the ingress. 
+    - Once ingress become ready. test it from local console.. like **curl http://envoy.disearch.ai/**
+    - Once get result. Now apply GCP managed certificate with ingress. First time it will take 20 to 30 mint to issue the certificate.. and attaching with ingress loadbalancer. for checking status go to gcp certificate manager and see certicate status. (Provioning: means it is provisioning, ACTIVE: mean certificate is active). **Here IN USE** section will tell you certificate is attached with ingress.
+    - Go to ingress and see ingress will route specfic domain to backend service. and service will sent it to the deployment. If it is ingress is showing that **backend service is UNHEALTHY**, then check your backend service and pods..  Hit traffic on backend service pod directly and see the response(for this you need to go to other pod and hit traffic from other pod to backendservice pod and see response.). and you can also go inside the backend service pod and hit from inside the same pod, like ** curl http://localhost:<code listening port>**
+
+  - if any thing not work, you simply need to recreate ingress again... just delete the ingress from kubernetes and redeploy the ingress manifest again...
+  - once done every thing. test ingress domain from local system like **curl -kv https://envoy.disearch.ai/** and see the response... **-kv** will ignore the certificate..
+  
+    
+    
+
 
 
 
