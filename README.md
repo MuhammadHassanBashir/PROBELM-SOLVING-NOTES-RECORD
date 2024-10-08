@@ -471,6 +471,93 @@
   - if any thing not work, you simply need to recreate ingress again... just delete the ingress from kubernetes and redeploy the ingress manifest again...
   - once done every thing. test ingress domain from local system like **curl -kv https://envoy.disearch.ai/** and see the response... **-kv** will ignore the certificate..
   
+### Face same GCP ingress issue again.. SOME BACKEND SERVICE ARE UNHEATHLY
+
+  Solution:
+  - I want to backend service and send traffic from other pod to the backend service.. (like: if go inside the other pod and then send traffic(ping backend pod) to see the backend pod response like **curl http://<backendservice-name>:<backendservice-port>**). And i have found the same tls handshake error. I remove the below line in my envoy.yaml file and redeploy the deployment using helm. And it started working..
+
+      transport_socket:
+                name: envoy.transport_sockets.tls
+                typed_config:
+                  "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+                  sni: envoy.disearch.ai   
+
+    And GCR ingress also showing HEALTHY Status
+
+
+## Command to manually test the certificate
+
+   curl -vI https://envoy.disearch.ai or curl -kv https://envoy.disearch.ai --> -kv ingnore the certificate
+    
+   *   Trying 34.117.212.151:443...
+   * TCP_NODELAY set
+   * Connected to envoy.disearch.ai (34.117.212.151) port 443 (#0)
+   * ALPN, offering h2
+   * ALPN, offering http/1.1
+   * successfully set certificate verify locations:
+   *   CAfile: /etc/ssl/certs/ca-certificates.crt
+     CApath: /etc/ssl/certs
+   * TLSv1.3 (OUT), TLS handshake, Client hello (1):
+   * TLSv1.3 (IN), TLS handshake, Server hello (2):
+   * TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+   * TLSv1.3 (IN), TLS handshake, Certificate (11):
+   * TLSv1.3 (IN), TLS handshake, CERT verify (15):
+   * TLSv1.3 (IN), TLS handshake, Finished (20):
+   * TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+   * TLSv1.3 (OUT), TLS handshake, Finished (20):
+   * SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+   * ALPN, server accepted to use h2
+   * Server certificate:
+   *  subject: CN=envoy.disearch.ai
+   *  start date: Oct  8 17:25:10 2024 GMT
+   *  expire date: Jan  6 18:16:42 2025 GMT
+   *  subjectAltName: host "envoy.disearch.ai" matched cert's "envoy.disearch.ai"
+   *  issuer: C=US; O=Google Trust Services; CN=WR3
+   *  SSL certificate verify ok.
+   * Using HTTP2, server supports multi-use
+   * Connection state changed (HTTP/2 confirmed)
+   * Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+   * Using Stream ID: 1 (easy handle 0x558f5d3a5340)
+   > HEAD / HTTP/2
+   > Host: envoy.disearch.ai
+   > user-agent: curl/7.68.0
+   > accept: */*
+   > 
+   * TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+   * TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+   * old SSL session ID is stale, removing
+   * Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+   < HTTP/2 200 
+   HTTP/2 200 
+   < server: envoy
+   server: envoy
+   < date: Tue, 08 Oct 2024 21:27:50 GMT
+   date: Tue, 08 Oct 2024 21:27:50 GMT
+   < content-type: text/html
+   content-type: text/html
+   < content-length: 615
+   content-length: 615
+   < last-modified: Wed, 02 Oct 2024 15:13:19 GMT
+   last-modified: Wed, 02 Oct 2024 15:13:19 GMT
+   < etag: "66fd630f-267"
+   etag: "66fd630f-267"
+   < accept-ranges: bytes
+   accept-ranges: bytes
+   < x-envoy-upstream-service-time: 0
+   x-envoy-upstream-service-time: 0
+   < via: 1.1 google
+   via: 1.1 google
+   < alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+   alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+   
+   <
+   * Connection #0 to host envoy.disearch.ai left intact  
+   
+
+
+
+
+  
     
     
 
