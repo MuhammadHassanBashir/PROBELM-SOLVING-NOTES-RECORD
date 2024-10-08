@@ -553,10 +553,11 @@
    <
    * Connection #0 to host envoy.disearch.ai left intact  
 
-TESTING
-Command to test envoy rate limit. GO inside any gke pod and use this.. it will send traffic to your service running envoy. and you can test the envoy rate limit feature
+## TESTING
+  
+  Command to test envoy rate limit. GO inside any gke pod and use this.. it will send traffic to your service running envoy. and you can test the envoy rate limit feature
 
-  while true; do curl http://envoy-service:10000/headers; done
+    while true; do curl http://envoy-service:10000/headers; done
    
 
 
