@@ -712,7 +712,9 @@ Conclusion
 
    
 
+## Created cronjob to purage image
 
+  azeer created cronjob to purage image on jenkins.
 
 
   
