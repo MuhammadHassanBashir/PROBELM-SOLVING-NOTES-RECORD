@@ -724,6 +724,24 @@ Conclusion
 
   In the case of StatefulSets, this does not happen, every time a Pod is recreated, it comes with the same name.
 
+  **With StatefulSets, you will take advantage of the following features.**
+
+  **Unique network identifiers.**
+
+    This means that if your Pod goes down or is restarted for any reason, **when it comes back up, it can still be accessed by the same DNS address**, i.e. the same name.
+
+  **Persistent storage.**
+
+    This means that your Pods will have a PersistentVolume even after deleting the Pods, and even after deleting the StatefulSet, your data will not be lost. When you delete a StatefulSet, all Pods associated with it, that is, all those Pods that it is managing will be automatically removed, but the volumes will persist. That is, they will not be deleted and your data will continue to live.
+
+  **Another fundamental characteristic of StatefulSets resources is that implementation, scaling and rolling updates are carried out orderly,**
+
+   respecting a numerical order for these operations. You can know exactly the sequence in which your Pods will be deployed, scaled, and even the sequence in which they will be removed during the scale-down operation. Using Deployments or ReplicaSets.
+
+  You don't have these characteristics, but with StatefulSets, we have unique identifiers in the Pods,
+  
+  so we can know which one will undergo a modification in these cases.
+
   
 
 
