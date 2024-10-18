@@ -716,6 +716,16 @@ Conclusion
 
   azeer created cronjob to purage image on jenkins.
 
+## What is the difference b/w deployment and statefulset.
+
+  The key difference b/w deployment and statefulset is "statefulset alway maintain its state". Whenever the pod is recreated by deployment or replicaset, it gains a new identifier(name), mean kubernetes would generate a new hash code  of a new pod that is recreated. but in statefullset it does not happen every recreated pod comes with the same name.
+
+  Detail:  StatefulSet can maintain the identity of its Pods, becoming an indispensable component for applications where you want to maintain the state. As we have seen countless times. Each time a Pod is recreated by a Deployment or ReplicaSet resource, it gains a new identifier, which means it gains a new name.Kubernetes generates a new hash code to compose each name of a new Pod that is recreated.
+
+  In the case of StatefulSets, this does not happen, every time a Pod is recreated, it comes with the same name.
+
+  
+
 
   
     
