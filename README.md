@@ -747,8 +747,15 @@ Conclusion
     kubectl rollout history deployment vertexai-citation-deployment
     kubectl rollout undo deployment vertexai-citation-deployment
     kubectl rollout history deployment vertexai-citation-deployment
-    
 
+# Edit kubernetes resources
+
+  Remember: 
+  Always edit the resource deployment or StatefulSet, not the pod directly. If you edit the pod directly instead of editing the deployment or StatefulSet, when the pod restarts, its corresponding StatefulSet or deployment will recreate the pod with the previous configuration, and any new changes made to the pod will be lost. Therefore, it's best practice to edit the deployment or StatefulSet instead of the pod. This way, the pod will receive the updated changes from the deployment or StatefulSet with every restart.
+  
+  You can delete pods to pull the latest images, provided the pod and the deployment use the same image tags. The pod will automatically pull the latest image. However, if you need to update the image tag, you should update the deployment, not the pod. Otherwise, you may face the issue mentioned above, where changes are overwritten.
+      
+  
 
   
     
