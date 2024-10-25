@@ -742,7 +742,12 @@ Conclusion
   
   so we can know which one will undergo a modification in these cases.
 
+# Roll undo command for kubernetes deployment
   
+    kubectl rollout history deployment vertexai-citation-deployment
+    kubectl rollout undo deployment vertexai-citation-deployment
+    kubectl rollout history deployment vertexai-citation-deployment
+    
 
 
   
