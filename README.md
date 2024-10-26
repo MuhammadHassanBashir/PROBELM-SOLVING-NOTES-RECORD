@@ -748,7 +748,7 @@ Conclusion
     kubectl rollout undo deployment vertexai-citation-deployment
     kubectl rollout history deployment vertexai-citation-deployment
 
-# Edit kubernetes resources
+## Edit kubernetes resources
 
   Remember: 
   Always edit the resource deployment or StatefulSet, not the pod directly. If you edit the pod directly instead of editing the deployment or StatefulSet, when the pod restarts, its corresponding StatefulSet or deployment will recreate the pod with the previous configuration, and any new changes made to the pod will be lost. Therefore, it's best practice to edit the deployment or StatefulSet instead of the pod. This way, the pod will receive the updated changes from the deployment or StatefulSet with every restart.
@@ -756,8 +756,33 @@ Conclusion
   You can delete pods to pull the latest images, provided the pod and the deployment use the same image tags. The pod will automatically pull the latest image. However, if you need to update the image tag, you should update the deployment, not the pod. Otherwise, you may face the issue mentioned above, where changes are overwritten.
       
   
+## I encountered an issue while trying to build and push an image from my local system to Google Cloud Artifact Registry.
 
-  
+    I encountered an issue while trying to build and push an image from my local system to Google Cloud Artifact Registry using the command:
+    
+      gcloud builds submit
+    
+    The build process succeeded, but when it attempted to push the image, I received the following error:
+    
+    denied: Permission "artifactregistry.repositories.uploadArtifacts" denied on resource "projects/disearchmt-dev/locations/us/repositories/gcr.io" (or it may not exist)
+    ERROR: failed to push because we ran out of retries.
+    ERROR: error pushing image "gcr.io/disearchmt-dev/image-pubsub": generic::unknown: retry budget exhausted (10 attempts): step exited with non-zero status: 1
+    ERROR: (gcloud.builds.submit) build <build-id> completed with status "FAILURE"
+    
+    To resolve this, I granted Artifact Registry Writer and Storage Admin permissions to the user account (mursleen) and asked them to try the gcloud builds submit command again. However, the issue persisted. I then suggested using Docker commands instead, specifically running:
+    
+      gcloud auth configure-docker
+    
+    After configuring Docker authentication, the user was able to successfully push the image to the Artifact Registry. However, when deploying this image to a Cloud Run service, we encountered an error stating that the container was not running on port 8080. The user then requested I investigate the original gcloud builds submit command error, as it had previously worked fine for deploying Cloud Run services.
+    
+    Upon troubleshooting, I found the following insight online:
+    
+    “I don’t use Docker commands to push the image; I let Cloud Build recognize the language and build the image with the command: gcloud builds submit --pack image=europe-west3-docker.pkg.dev/...... I encountered the same error due to insufficient permissions for the Cloud Build service account on the Artifact Registry. The solution was to assign the ‘Artifact Registry Writer’ role to the Cloud Build service account.”
+    
+    After reading this, I understood that the issue was related to Cloud Build using a service account without the correct permissions for pushing images to the Artifact Registry. I verified that the service account used by Cloud Build in the disearchmt-dev project did not exist in IAM. I then created a comparable service account with the Artifact Registry Writer role and assigned it as the default service account for Cloud Build in my project.
+    
+    After these changes, I asked the developer to retry the gcloud builds submit command, and this time, the image was built and pushed successfully. The image was also used in Cloud Run without any issues. Adding the Artifact Registry Writer permission resolved the problem.
+
     
     
 
