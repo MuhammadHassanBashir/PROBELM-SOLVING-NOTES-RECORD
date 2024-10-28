@@ -878,6 +878,10 @@ Conclusion
   sudo docker rm $(sudo docker ps -aq)
   sudo docker rmi -f $(sudo docker images -q)
 
+## Run bash script and get ouput in .txt file..
+
+  sudo bash docker-bench-security.sh > cis_benchmark_output.txt
+
     
 
 
