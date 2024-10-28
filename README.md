@@ -871,6 +871,13 @@ Conclusion
     --key=/etc/kubernetes/pki/etcd/server.key \
     snapshot save /opt/snapshot-pre-boot.db
     
+
+## Command to stop, remove all container and images..
+
+  sudo docker stop $(sudo docker ps -aq)
+  sudo docker rm $(sudo docker ps -aq)
+  sudo docker rmi -f $(sudo docker images -q)
+
     
 
 
