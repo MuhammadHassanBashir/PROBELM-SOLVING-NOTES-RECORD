@@ -882,6 +882,21 @@ Conclusion
 
   sudo bash docker-bench-security.sh > cis_benchmark_output.txt
 
+## jenkins pipline for set images in kubernetes
+  
+  gcloud config set project disearch
+  docker build -f Dockerfile -t gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT .
+  docker tag gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT gcr.io/disearch/multi-model-doc-chat:latest
+  docker push gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT
+  docker push gcr.io/disearch/multi-model-doc-chat:latest
+  gcloud container clusters get-credentials search-app-dev --zone us-central1-c --project disearch
+  kubectl set image deployment/multi-model-doc-chat-deployment multi-model-doc-chat=gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT
+  
+  gcloud config set project disearchmt-dev
+  docker tag gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT gcr.io/disearchmt-dev/multi-model-doc-chat:dev-$GIT_COMMIT
+  docker push gcr.io/disearchmt-dev/multi-model-doc-chat:dev-$GIT_COMMIT
+  gcloud container clusters get-credentials disearch-cluster --zone us-central1-c --project disearchmt-dev
+  kubectl set image deployment/multi-model-doc-chat-deployment multi-model-doc-chat=gcr.io/disearchmt-dev/multi-model-doc-chat:dev-$GIT_COMMIT
     
 
 
