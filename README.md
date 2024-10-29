@@ -899,9 +899,27 @@ Conclusion
   kubectl set image deployment/multi-model-doc-chat-deployment multi-model-doc-chat=gcr.io/disearchmt-dev/multi-model-doc-chat:dev-$GIT_COMMIT
     
 
+## Argo CD supports managing multiple clusters from a single Argo CD instance, so you can use a single Argo CD setup to deploy applications across multiple GCP GKE clusters. Here’s how it can work:
 
-
-
+      Single Argo CD Instance with Multiple Cluster Configurations:
+      
+      You only need one Argo CD installation in one cluster (often called the "primary" cluster).
+      Argo CD uses Kubernetes cluster contexts to connect to and manage other clusters. You can configure each GKE cluster as a "cluster resource" within the Argo CD setup.
+      This approach allows you to deploy and monitor applications across clusters from a single Argo CD UI, making management easier and more centralized.
+      Configuring Additional Clusters in Argo CD:
+      
+      To add additional clusters, use argocd cluster add with the appropriate context for each GKE cluster.
+      Each GKE cluster’s kubeconfig and authentication details should be accessible by Argo CD (either via kubeconfig context or a service account with sufficient permissions).
+      Once configured, you can specify the target cluster for each application within Argo CD by setting the destination accordingly.
+      Using Argo CD Agents (Optional):
+      
+      For more complex setups, you might want to install an Argo CD agent (like argocd-agent) on each target cluster. This can be beneficial if you need reduced latency or better fault tolerance by having agents in each cluster. However, this is not required if you don’t have performance constraints.
+      Access Control and Security:
+      
+      Ensure that your Argo CD instance has appropriate RBAC permissions to manage resources in each target cluster. This often means configuring service accounts in each cluster to allow Argo CD to deploy resources securely.
+      With this setup, you avoid the need to install multiple Argo CD instances, and you can centrally manage applications across multiple GKE clusters on various GCP projects.
+      
+      
 
 
       
