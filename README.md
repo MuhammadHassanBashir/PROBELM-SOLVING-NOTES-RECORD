@@ -919,13 +919,18 @@ Conclusion
       Ensure that your Argo CD instance has appropriate RBAC permissions to manage resources in each target cluster. This often means configuring service accounts in each cluster to allow Argo CD to deploy resources securely.
       With this setup, you avoid the need to install multiple Argo CD instances, and you can centrally manage applications across multiple GKE clusters on various GCP projects.
       
-      
+# Areez provisioned a WFP project on GCP, which has organization-level restrictions set on it..
+
+    Due to these restrictions, GCP has not exposed an external IP for the project, meaning that external traffic cannot directly access resources within it. Additionally, the policy does not allow the use of unauthenticated access in Cloud Run, preventing our frontend application (which was running on Cloud Run) from accepting traffic externally.
+    
+    Solution:
+    
+    After analyzing the setup, we observed that GCP allows the use of external IPs only through a load balancer. To work around this restriction, Areez deployed both the frontend and backend applications within the same GKE cluster. Previously, we deployed the frontend on Cloud Run and the backend on the GKE cluster. Now, with both services running in the same cluster, he exposed the frontend through a load balancer. This configuration allows us to direct external traffic to the load balancer, which then routes it to the deployment pods.
+    
+    Additionally, Areez successfully connected the frontend and backend to the database, ensuring that the database credentials were securely provided to the pods. This setup resolved the access limitations and allowed smooth operation across our services.
+    
+    
+    
 
 
-      
-      
-      
-      
-      
-      
-      
+
