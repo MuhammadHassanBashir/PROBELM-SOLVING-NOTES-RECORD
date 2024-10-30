@@ -927,7 +927,7 @@ Conclusion
     
     After analyzing the setup, we observed that GCP allows the use of external IPs only through a load balancer. To work around this restriction, Areez deployed both the frontend and backend applications within the same GKE cluster. Previously, we deployed the frontend on Cloud Run and the backend on the GKE cluster. Now, with both services running in the same cluster, he exposed the frontend through a load balancer. This configuration allows us to direct external traffic to the load balancer, which then routes it to the deployment pods.
     
-    Additionally, Areez successfully connected the frontend and backend to the database, ensuring that the database credentials were securely provided to the pods. This setup resolved the access limitations and allowed smooth operation across our services.
+    Additionally, Areez successfully connected the frontend and backend to the database, ensuring that the database credentials were securely provided to the pods, and pods get the creds from gcp secret manager using workload identity. This setup resolved the access limitations and allowed smooth operation across our services.
     
     
     
