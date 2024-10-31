@@ -1277,6 +1277,8 @@ Miscellaneous Mastery:
 * screen/tmux - Terminal multiplexer
 
 
+## what is the difference b/w ss , netstat , lsof
+
 Purpose: ss is used to display detailed information about network sockets. It can show all established network connections, listening sockets, and even packet statistics.
     
     ss -tuln: List all listening TCP and UDP sockets.
