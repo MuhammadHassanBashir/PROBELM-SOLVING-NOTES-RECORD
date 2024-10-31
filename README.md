@@ -1275,3 +1275,22 @@ Miscellaneous Mastery:
 * xargs - Command multiplier
 * at - Job scheduler
 * screen/tmux - Terminal multiplexer
+
+
+Purpose: ss is used to display detailed information about network sockets. It can show all established network connections, listening sockets, and even packet statistics.
+    
+    ss -tuln: List all listening TCP and UDP sockets.
+    ss -s: Display summary statistics about the system's socket connections.
+    ss -p: Show process information related to the connections.
+
+Purpose: netstat provides information about network connections, routing tables, and network interfaces.
+
+    netstat -tuln: Show all listening TCP and UDP ports.
+    netstat -p: Show process details related to connections.
+    netstat -i: Display statistics for each network interface.
+
+Purpose: lsof lists all open files, including network sockets and ports, as everything in Linux is represented as a file (even network connections).
+
+    lsof -i :80: Show processes using port 80.
+    lsof -u [username]: List all open files by a specific user.
+    lsof -i -n -P: List all network connections with numerical addresses and ports.
