@@ -1244,13 +1244,14 @@ Process Control:
 * systemctl - Service sorcery
 * journalctl - Log time machine
 * kill -9 - Process terminator
-* nice - Priority painter
+* nice - Priority painter    The nice command is useful for controlling process priority and managing system load by allowing less critical processes to yield more CPU time to more critical ones.
 
 Performance Profiling:
-* strace - System call spy
-* tcpdump - Network packet poet
-* sar - System activity reporter
-* perf - Performance profiler
+* strace - System call spy       Purpose: strace is a diagnostic tool used to monitor the interactions between a process and the Linux kernel. It intercepts and records the system calls made by a process, along with their arguments and return values.  Usage: It’s useful for debugging and understanding how a program works, especially when you're trying to identify why it fails or behaves unexpectedly.
+
+* tcpdump - Network packet poet    tcpdump is a command-line packet analyzer that captures network packets transmitted over a network interface. It can display the packets in real-time or save them for later analysis.
+* sar - System activity reporter   sar is a tool that collects and reports various system activity information, including CPU usage, memory usage, I/O statistics, and network activity. It can provide historical data as well. 
+* perf - Performance profiler      perf is a powerful performance analysis tool for Linux. It provides insights into CPU performance counters, tracepoints, and more. 
 
 Text Wrangling:
 * cut -d - Column collector
