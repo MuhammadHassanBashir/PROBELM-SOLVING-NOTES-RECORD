@@ -1163,5 +1163,9 @@ Conclusion
         Save and run the pipeline.
         Watch the pipeline stages to ensure each step completes without errors.
         After the pipeline runs successfully, visit http://your_instance_public_ip to access the application.
+
+        summmay:
+
+        ssh key jenkins ma generate ker k ec2 instance ko deni parti ha.. mean ssh connection create kerna hota ha jis sa jenkins ec2 ma deployment ker rha hoga..
         
         
