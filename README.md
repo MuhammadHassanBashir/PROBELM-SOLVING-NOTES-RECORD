@@ -1296,3 +1296,16 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     lsof -i :80: Show processes using port 80.
     lsof -u [username]: List all open files by a specific user.
     lsof -i -n -P: List all network connections with numerical addresses and ports.
+
+## what is the difference b/w sed and awk
+
+  sed(stream editor) is great for straightforward for finding text and replacements.
+
+      sed 's/foo/bar/g' input.txt > output.txt                    
+
+  awk is ideal for structured data extraction and reporting, allowing more complex processing like handling fields in data.
+
+      awk '{print $2}' input.txt
+
+  here information is in input.txt file.
+
