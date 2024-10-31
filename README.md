@@ -1193,3 +1193,7 @@ Managing multiple environments in Terraform can be streamlined using several str
 Summary
     
     Each method has its strengths, from workspaces for simplicity to external tools for more complex, centralized management. The choice depends on your team’s needs for isolation, complexity, and flexibility in managing multiple Terraform environments.
+
+## What is the difference b/w apache and nginx web server
+
+    https://www.geeksforgeeks.org/difference-between-apache-and-nginx/
