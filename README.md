@@ -1323,3 +1323,11 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     remember: Pod configuration file ma mount path dny sa us path k name ki directory pod ma auto create hojati ha...   
 
     and code ma jo file name dya ha key k lye, wo filename ko hi configmap ma bnana ha... or usma key rakni ha.. other wise pod error dye ga.. or verification k lye ap pod k under jaker us path ma key dekh sakhty hn.. or agr path crash ker rha ho tu ap, pod crash krny sa phily jakr b dekh sakhty hn, or debug container ko use ker k b crashpod k under jasakhty hn 
+
+
+## How to get values.yaml file from running helm chart..
+    
+    helm list  -n airflow     ---> command to list the repo..   and get the repo name..
+    helm get values airflow -n airflow > values.yaml
+    
+    command to get values.yaml using helm repo release-name
