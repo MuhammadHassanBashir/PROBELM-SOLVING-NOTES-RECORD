@@ -1331,3 +1331,10 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     helm get values airflow -n airflow > values.yaml
     
     command to get values.yaml using helm repo release-name
+
+## How to install airflow in kuberetes using helm
+
+    helm repo add apache-airflow https://airflow.apache.org
+    helm upgrade --install airflow apache-airflow/airflow --namespace airflow --create-namespace --values ./gke_cluster/airflow/values.yaml
+
+    for this you need to get values.yaml file from repo...
