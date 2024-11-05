@@ -1338,3 +1338,13 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     helm upgrade --install airflow apache-airflow/airflow --namespace airflow --create-namespace --values ./gke_cluster/airflow/values.yaml
 
     for this you need to get values.yaml file from repo...
+
+## how to verify that service can successfully select the deployment pod.
+
+    for this you need to verify the below information
+    
+    - verify that service selector label and pod selector label should be same. by this service select the pod in deployment..
+    - verify that service target port and deployment pod(contianer port) should be same.
+    - verify that service gets the endpoint which is pod ip. Check the pod ip using command "k get pod/pod-name -o wide" and describe the service and match pod ip with service endpoint. if it same this means service get a correct end point...
+    
+    this these steps you get to know that service correctly attach with pod.
