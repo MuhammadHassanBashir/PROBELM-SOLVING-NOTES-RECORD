@@ -1310,3 +1310,14 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
 
   here information is in input.txt file.
 
+
+## 
+
+Our team has written a code, in that code developer has given a path like this /opt/service/secret.json, for making this sense that our code will get "secret.json file" from this path when the code will ran into the pod/container. for intracting gcp services like our case we do this for getting secret. 
+
+so we make serviceaccount in gcp, assign IAM permission on it, download serviceaccount key from gcp, now we need to give this key to our pod in this /opt/service/secret.json
+with secret.json name, so our code will get this key from this path inside.
+
+what we gona do for this.. we have create a configmap in kubernets with name serviceaccount, add data with filename secret.json and add key on configmap. now attach this configmap with pod using volumes and volume mount of mount path /opt/service/. In that way our pod will get secret.json file on path /opt/service.
+
+remember: Pod configuration file ma mount path dny sa us path k name ki directory pod ma auto create hojati ha...   
