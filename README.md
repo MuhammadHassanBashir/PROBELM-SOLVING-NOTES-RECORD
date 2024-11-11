@@ -1845,3 +1845,8 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     36. How do you run a script at boot level in Linux?
     Add it to /etc/rc.local or create a systemd service
 
+
+## AWS CloudTrail
+
+    AWS CloudTrail is a service that provides comprehensive monitoring and logging for actions taken on your AWS account. 
+
