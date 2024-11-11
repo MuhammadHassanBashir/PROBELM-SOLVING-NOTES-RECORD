@@ -1854,3 +1854,10 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     Compliance Requirements: Many compliance standards (such as HIPAA, GDPR, and SOC) require detailed logging of all actions within the cloud environment. CloudTrail helps meet these requirements by maintaining a comprehensive audit trail.
     Detecting Unauthorized Access: By monitoring CloudTrail logs, you can detect unauthorized or suspicious activities, such as access from unfamiliar IP addresses, unusual usage patterns, or attempts to access restricted resources.
 
+## To remove a package but keep its configuration files on a Linux system, you can use the following commands depending on the package manager you are using:
+
+    On Debian/Ubuntu (APT)
+    Use the **remove** command instead of **purge**. The remove command will uninstall the package without deleting its configuration files.
+
+
+    sudo apt remove <package_name>
