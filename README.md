@@ -1734,3 +1734,114 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
   68. ln: Create links between files.
   69. uname: Print system information.
   70. lsof: List open files and processes.
+
+
+## Linux concepts as a beginner. 
+    
+    1. What is the boot process in Linux?
+    The Linux boot process has several stages:
+    
+    BIOS/UEFI: Power on, BIOS/UEFI checks hardware and passes control to the bootloader.
+    Bootloader: (GRUB or LILO) Loads the Linux kernel.
+    Kernel: The kernel initializes and loads essential services.
+    Init/Systemd: Manages user space and starts services.
+    Login: Shows the login prompt or graphical user interface (GUI).
+    2. How can you create a zero-size file in Linux?
+    Use the touch command: touch filename.txt
+    3. What are soft links and hard links in Linux?
+    Soft Link (Symbolic Link): Points to the original file. Like a shortcut.
+    Command: ln -s original_file link_name
+    Hard Link: Points to the data on disk. Deleting the original file doesn't affect it.
+    Command: ln original_file link_name
+    Difference: Hard links can't be used across different file systems or directories, while soft links can.
+    4. What is the first line typically written in a shell script?
+    The first line is #!/bin/bash, called the "shebang."
+    It tells the system which interpreter (like bash) to use.
+    Without it, you may need to run scripts as bash script.sh instead of ./script.sh.
+    5. How can you run a shell script in the background in Linux?
+    Add an & at the end of the command: ./script.sh &
+    6. What is a crontab in Linux?
+    Crontab schedules recurring tasks.
+    Command to edit: crontab -e
+    Syntax example: * * * * * /path/to/script.sh (Runs every minute)
+    7. How do you allow ports in Linux?
+    For Ubuntu/Debian: sudo ufw allow port_number
+    For CentOS/RHEL: sudo firewall-cmd --add-port=port_number/tcp --permanent
+    8. How do you troubleshoot a remote server that is experiencing issues?
+    Ping the server: ping server_ip
+    SSH into the server: ssh user@server_ip
+    Check logs: tail -f /var/log/syslog
+    9. What are the ping, telnet, curl, and wget commands?
+    ping: Checks network connectivity.
+    telnet: Tests connectivity to specific ports.
+    curl: Requests data from or sends data to URLs.
+    wget: Downloads files from the internet.
+    10. How can you check the status of services in a Linux machine?
+    systemctl status service_name (for newer systems)
+    11. How do you kill a process in Linux?
+    Find the process ID: ps aux | grep process_name
+    Kill the process: kill process_id
+    12. What are the nice and renice commands in Linux?
+    nice: Sets the priority of a new process.
+    renice: Changes the priority of a running process.
+    13. What is an inode in Linux?
+    An inode stores information about a file or directory, such as its size, owner, and permissions.
+    14. How do you check CPU utilization in Linux?
+    Use the top or htop commands.
+    15. What are the differences between the top and htop commands?
+    top: Command-line process viewer.
+    htop: Enhanced version with a visual interface. Easier to read.
+    16. What is a mount in Linux, and how do you create one?
+    Mounting connects a storage device or partition to a directory.
+    Example: sudo mount /dev/sdb1 /mnt
+    17. How do you troubleshoot live logs in Linux?
+    Use tail -f /var/log/syslog to view live logs.
+    18. What is the sed command in Linux?
+    sed is a stream editor for text manipulation.
+    Example: sed 's/old/new/g' file.txt
+    19. What is the awk command in Linux?
+    awk processes and analyzes text, often used with columns.
+    Example: awk '{print $1}' file.txt (Prints the first column)
+    20. What are the grep and egrep commands in Linux?
+    grep: Searches for text patterns.
+    egrep: Extended version that supports more patterns.
+    21. How can you list only directories in a Linux environment?
+    Use ls -d */
+    22. How do you check the processes running in Linux?
+    Use the ps aux command or top command.
+    23. How do you get a Java thread dump in Linux?
+    Use the jstack process_id command.
+    24. How can you check the running ports on a Linux machine?
+    Use netstat -tuln or ss -tuln.
+    25. How do you declare a variable in a shell script?
+    Syntax: variable_name=value
+    26. What do $?, $#, and $ represent in shell scripting?*
+    $?: Last command's exit status.
+    $#: Number of arguments passed.
+    $*: All arguments passed to the script.
+    27. How do you read a command line input in a shell script?
+    Use read variable_name
+    28. What is umask in Linux?
+    umask sets default file permissions.
+    Command: umask 022
+    29. How do you change file permissions in Linux?
+    Use chmod permissions file_name (e.g., chmod 755 script.sh)
+    30. How can you connect to remote servers without a password?
+    Use SSH keys:
+    Generate a key: ssh-keygen
+    Copy the key: ssh-copy-id user@server_ip
+    31. How do you open a file in read-only mode in the vi editor?
+    Command: vi -R filename
+    32. What is the purpose of the export command in Linux?
+    export makes a variable available to child processes.
+    Example: export PATH=$PATH:/new/path
+    33. How do you send error logs and stdout logs to different files in Linux?
+    Command: command > output.log 2> error.log
+    34. What is the nohup command in Linux?
+    nohup keeps a command running even after logging out.
+    Usage: nohup command &
+    35. What does the netstat command do in Linux?
+    netstat shows network connections, routing tables, and listening ports.
+    36. How do you run a script at boot level in Linux?
+    Add it to /etc/rc.local or create a systemd service
+
