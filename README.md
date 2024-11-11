@@ -1849,4 +1849,8 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
 ## AWS CloudTrail
 
     AWS CloudTrail is a service that provides comprehensive monitoring and logging for actions taken on your AWS account. 
+    
+    Audit Logging: CloudTrail records actions taken by users, roles, and services, capturing API calls and other events that could impact the security of your AWS account. It’s crucial for auditing purposes, as it logs details about who made a request, when it was made, and what changes were made.
+    Compliance Requirements: Many compliance standards (such as HIPAA, GDPR, and SOC) require detailed logging of all actions within the cloud environment. CloudTrail helps meet these requirements by maintaining a comprehensive audit trail.
+    Detecting Unauthorized Access: By monitoring CloudTrail logs, you can detect unauthorized or suspicious activities, such as access from unfamiliar IP addresses, unusual usage patterns, or attempts to access restricted resources.
 
