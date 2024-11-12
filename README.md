@@ -2250,3 +2250,7 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       Jenkins has plugins like the Google OAuth Credentials plugin that can handle GCP authentication more seamlessly. The plugin also allows setting up authentication with the service account directly from Jenkins without scripting the setup.
       
       By following these steps, Jenkins should be able to securely access GCP resources using a service account.  
+
+## Cannot access global variable from jenkins 
+
+    Remember: jenkins ma jb ap **manage jenkins ma > system** option ma jakr global variable ko set krty hn, tky y global variable sab pipeline ma access ho sakhy or ap inhy pipeline ma khi b use kr sakhty **tu ap na variable k names ma -(hifen) ki jaga _(underscore) use krna ha other wise jenkins file hojy gi because wo global variable sa variable ko access ni kr rhi hogi..** 
