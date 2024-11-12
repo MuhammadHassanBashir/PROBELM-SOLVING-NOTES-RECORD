@@ -2195,3 +2195,58 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       Using the temporary credentials returned by the assume-role command, the user in Account B can now access the resources in Account A according to the permissions granted in the role's policy.
       
       This setup allows secure cross-account access between two AWS accounts without sharing credentials directly.
+
+## HOW CAN JENKINS GET ACCESS OF GCP CLOUD RESOURCE USING SERVICE ACCOUNT
+
+      Yes, Jenkins can access Google Cloud Platform (GCP) resources using a Google Cloud service account. Here’s how you can set it up:
+      
+      1. Create a Service Account in GCP
+      Go to the GCP Console.
+      Navigate to IAM & Admin > Service Accounts.
+      Click Create Service Account.
+      Give it a name and description that helps identify its purpose.
+      Under Grant this service account access to the project, assign the necessary roles (e.g., Viewer, Storage Admin, Compute Admin, etc.), depending on what resources Jenkins needs to access.
+      Click Continue, and Done to finish creating the service account.
+      2. Generate a Key for the Service Account
+      In the Service Accounts section, find the service account you just created.
+      Click on the Actions (three dots) next to the service account and select Manage Keys.
+      Click Add Key > Create New Key.
+      Select JSON as the key type and click Create. This will download a JSON key file to your computer. Keep this file secure, as it allows access to your GCP resources.
+      3. Configure Jenkins to Use the Service Account Key
+      Go to your Jenkins instance.
+      In Jenkins, navigate to Manage Jenkins > Manage Credentials.
+      Add the JSON key file as a credential:
+      Select the correct domain (usually Global).
+      Click Add Credentials.
+      Select Secret file as the Kind.
+      Choose the JSON key file you downloaded, and give it a meaningful ID (like gcp-service-account).
+      4. Use the Service Account in Your Jenkins Pipeline
+      In your Jenkins pipeline script, you can now reference this credential to authenticate with GCP. Here’s how to set up authentication in your pipeline using the GOOGLE_APPLICATION_CREDENTIALS environment variable.
+      
+      groovy
+      Copy code
+      pipeline {
+          agent any
+      
+          environment {
+              GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-service-account')  // Use the ID you set earlier
+          }
+      
+          stages {
+              stage('Access GCP') {
+                  steps {
+                      script {
+                          // Example: Run gcloud commands
+                          sh 'gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"'
+                          
+                          // Now you can run gcloud or other GCP SDK commands
+                          sh 'gcloud compute instances list'
+                      }
+                  }
+              }
+          }
+      }
+      Alternative: Use a Plugin for GCP Authentication
+      Jenkins has plugins like the Google OAuth Credentials plugin that can handle GCP authentication more seamlessly. The plugin also allows setting up authentication with the service account directly from Jenkins without scripting the setup.
+      
+      By following these steps, Jenkins should be able to securely access GCP resources using a service account.  
