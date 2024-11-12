@@ -2251,6 +2251,6 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       
       By following these steps, Jenkins should be able to securely access GCP resources using a service account.  
 
-## Cannot access global variable from jenkins 
+## Cannot access global variable in  jenkins pipeline from jenkins global variable setting under manage jenkins
 
-    Remember: jenkins ma jb ap **manage jenkins ma > system** option ma jakr global variable ko set krty hn, tky y global variable sab pipeline ma access ho sakhy or ap inhy pipeline ma khi b use kr sakhty **tu ap na variable k names ma -(hifen) ki jaga _(underscore) use krna ha other wise jenkins file hojy gi because wo global variable sa variable ko access ni kr rhi hogi..** 
+    Remember: jenkins ma jb ap **manage jenkins ma > system** option ma jakr global variable ko set krty hn, tky y global variable sab pipeline ma access ho sakhy or ap inhy pipeline ma khi b use kr sakhty **tu ap na variable k names ma -(hifen) ki jaga _(underscore) use krna ha other wise jenkins pipeline fail hojy gi because wo global variable sa variable ko access ni kr rhi hogi..** 
