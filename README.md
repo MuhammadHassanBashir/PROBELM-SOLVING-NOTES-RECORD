@@ -1865,3 +1865,233 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
 ## site for learning terraform content
 
     https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code
+
+## terraform reusibility
+
+    Here’s a basic example of using modules in Terraform to create reusable infrastructure components, like a VPC, subnet, route table, and security groups. This setup will show how to organize your code so you can reuse the modules across different environments or configurations.
+    
+    Step 1: Set up the directory structure
+    Create a directory structure like this:
+    
+    plaintext
+    Copy code
+    project-root/
+    ├── main.tf
+    ├── modules/
+    │   ├── vpc/
+    │   │   ├── main.tf
+    │   │   ├── outputs.tf
+    │   │   └── variables.tf
+    │   ├── subnet/
+    │   │   ├── main.tf
+    │   │   ├── outputs.tf
+    │   │   └── variables.tf
+    │   └── security_group/
+    │       ├── main.tf
+    │       ├── outputs.tf
+    │       └── variables.tf
+    └── variables.tf
+    Step 2: Define the VPC Module
+    In modules/vpc/main.tf, define the VPC resource:
+    
+    hcl
+    Copy code
+    // modules/vpc/main.tf
+    resource "aws_vpc" "this" {
+      cidr_block = var.cidr_block
+      tags = {
+        Name = var.name
+      }
+    }
+    In modules/vpc/variables.tf, define the input variables:
+    
+    hcl
+    Copy code
+    // modules/vpc/variables.tf
+    variable "cidr_block" {
+      description = "The CIDR block for the VPC"
+      type        = string
+    }
+    
+    variable "name" {
+      description = "The name tag for the VPC"
+      type        = string
+      default     = "example-vpc"
+    }
+    In modules/vpc/outputs.tf, define the output:
+    
+    hcl
+    Copy code
+    // modules/vpc/outputs.tf
+    output "vpc_id" {
+      value = aws_vpc.this.id
+    }
+    Step 3: Define the Subnet Module
+    In modules/subnet/main.tf, create the subnet resource:
+    
+    hcl
+    Copy code
+    // modules/subnet/main.tf
+    resource "aws_subnet" "this" {
+      vpc_id            = var.vpc_id
+      cidr_block        = var.cidr_block
+      availability_zone = var.availability_zone
+      tags = {
+        Name = var.name
+      }
+    }
+    Define input variables in modules/subnet/variables.tf:
+    
+    hcl
+    Copy code
+    // modules/subnet/variables.tf
+    variable "vpc_id" {
+      description = "The ID of the VPC"
+      type        = string
+    }
+    
+    variable "cidr_block" {
+      description = "The CIDR block for the subnet"
+      type        = string
+    }
+    
+    variable "availability_zone" {
+      description = "The availability zone for the subnet"
+      type        = string
+    }
+    
+    variable "name" {
+      description = "The name tag for the subnet"
+      type        = string
+      default     = "example-subnet"
+    }
+    Define outputs in modules/subnet/outputs.tf:
+    
+    hcl
+    Copy code
+    // modules/subnet/outputs.tf
+    output "subnet_id" {
+      value = aws_subnet.this.id
+    }
+    Step 4: Define the Security Group Module
+    In modules/security_group/main.tf, create a security group resource:
+    
+    hcl
+    Copy code
+    // modules/security_group/main.tf
+    resource "aws_security_group" "this" {
+      name        = var.name
+      description = var.description
+      vpc_id      = var.vpc_id
+    
+      ingress {
+        from_port   = var.ingress_from_port
+        to_port     = var.ingress_to_port
+        protocol    = var.ingress_protocol
+        cidr_blocks = var.ingress_cidr_blocks
+      }
+    
+      egress {
+        from_port   = 0
+        to_port     = 0
+        protocol    = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+      }
+    }
+    Define input variables in modules/security_group/variables.tf:
+    
+    hcl
+    Copy code
+    // modules/security_group/variables.tf
+    variable "name" {
+      description = "The name of the security group"
+      type        = string
+    }
+    
+    variable "description" {
+      description = "The description of the security group"
+      type        = string
+    }
+    
+    variable "vpc_id" {
+      description = "The ID of the VPC"
+      type        = string
+    }
+    
+    variable "ingress_from_port" {
+      description = "Ingress from port"
+      type        = number
+    }
+    
+    variable "ingress_to_port" {
+      description = "Ingress to port"
+      type        = number
+    }
+    
+    variable "ingress_protocol" {
+      description = "Ingress protocol"
+      type        = string
+    }
+    
+    variable "ingress_cidr_blocks" {
+      description = "Ingress CIDR blocks"
+      type        = list(string)
+    }
+    Define outputs in modules/security_group/outputs.tf:
+    
+    hcl
+    Copy code
+    // modules/security_group/outputs.tf
+    output "security_group_id" {
+      value = aws_security_group.this.id
+    }
+
+    Step 5: Use the Modules in main.tf
+
+    Now that the modules are defined, use them in the main main.tf to create a reusable setup:
+    
+    hcl
+    Copy code
+    // main.tf
+    
+    provider "aws" {
+      region = "us-west-2"
+    }
+    
+    module "vpc" {
+      source     = "./modules/vpc"
+      cidr_block = "10.0.0.0/16"
+      name       = "my-vpc"
+    }
+    
+    module "subnet" {
+      source            = "./modules/subnet"
+      vpc_id            = module.vpc.vpc_id
+      cidr_block        = "10.0.1.0/24"
+      availability_zone = "us-west-2a"
+      name              = "my-subnet"
+    }
+    
+    module "security_group" {
+      source              = "./modules/security_group"
+      vpc_id              = module.vpc.vpc_id
+      name                = "my-security-group"
+      description         = "Security group for my application"
+      ingress_from_port   = 22
+      ingress_to_port     = 22
+      ingress_protocol    = "tcp"
+      ingress_cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    Step 6: Run Terraform Commands
+    
+    Initialize Terraform:
+    
+    terraform init
+    Apply the configuration:
+
+
+    terraform apply
+    This configuration demonstrates reusability with modules in Terraform. You can now reuse these modules across different projects or environments by adjusting variables as needed.
+    
+
