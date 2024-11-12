@@ -2097,3 +2097,101 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     **module name ki directory ma apna apny reusible resource ko rakh dena ha, or phir sab other files like (main.tf) ma apna in module ko call krna ha.** is tarha sa ap terraform ma reusibilty ko apply ker sakhty hn.
     
 
+## AWS CROSS ACCOUNT ACCESS
+
+      To allow a user in one AWS account to access resources (like an EC2 instance or S3 bucket) in another AWS account, you can set up cross-account access using AWS Identity and Access Management (IAM) roles. Here’s a step-by-step guide:
+      
+      1. Define the Two Accounts
+      Account A: The account that owns the resources (like the EC2 instance or S3 bucket).
+      Account B: The account with the user or role that needs access to resources in Account A.
+      2. Set Up an IAM Role in Account A (Resource Account)
+      Log in to Account A (the resource account).
+      Go to the IAM Console.
+      Choose Roles in the left sidebar, then click Create role.
+      Under Select trusted entity, select Another AWS account.
+      Enter the Account ID of Account B.
+      Enable Require external ID (optional but recommended for security). Enter a unique external ID that the user in Account B will use when accessing resources.
+      Click Next to attach permissions.
+      3. Attach Permissions to the IAM Role
+      Attach a policy to the IAM role in Account A that specifies which resources in Account A the user in Account B can access. Here are two examples:
+      
+      Example A: Grant Access to an EC2 Instance
+      Choose Create policy or attach an existing policy.
+      
+      Use a policy similar to this to allow access to an EC2 instance:
+      
+      json
+      Copy code
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "ec2:DescribeInstances",
+              "ec2:StartInstances",
+              "ec2:StopInstances"
+            ],
+            "Resource": "arn:aws:ec2:region:AccountA_ID:instance/instance-id"
+          }
+        ]
+      }
+      Example B: Grant Access to an S3 Bucket
+      Use a policy similar to this to allow access to an S3 bucket:
+      
+      json
+      Copy code
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetObject",
+              "s3:ListBucket"
+            ],
+            "Resource": [
+              "arn:aws:s3:::bucket-name",
+              "arn:aws:s3:::bucket-name/*"
+            ]
+          }
+        ]
+      }
+      Click Next and Review. Give the role a name (like AccountBAccessRole) and Create role.
+      
+      4. Note the ARN of the Role
+      After creating the role, note the Role ARN (e.g., arn:aws:iam::AccountA_ID:role/AccountBAccessRole) because you'll need it for configuring Account B.
+      
+      5. Configure Access in Account B (User Account)
+      Log in to Account B.
+      
+      Go to the IAM Console and navigate to the Users or Roles section (depending on how access is granted in Account B).
+      
+      Edit the User or Role permissions in Account B and attach a policy that allows the user to assume the role created in Account A.
+      
+      json
+      Copy code
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "arn:aws:iam::AccountA_ID:role/AccountBAccessRole"
+          }
+        ]
+      }
+      6. Assume the Role in Account B
+      To access resources in Account A, the user in Account B must assume the role via the AWS CLI or SDK.
+      
+      Using AWS CLI:
+      
+      bash
+      Copy code
+      aws sts assume-role --role-arn "arn:aws:iam::AccountA_ID:role/AccountBAccessRole" --role-session-name "AccountBUserSession"
+      This command will return temporary credentials for accessing resources in Account A.
+      
+      7. Verify Access
+      Using the temporary credentials returned by the assume-role command, the user in Account B can now access the resources in Account A according to the permissions granted in the role's policy.
+      
+      This setup allows secure cross-account access between two AWS accounts without sharing credentials directly.
