@@ -2093,5 +2093,7 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
 
     terraform apply
     This configuration demonstrates reusability with modules in Terraform. You can now reuse these modules across different projects or environments by adjusting variables as needed.
+
+    **module name ki directory ma apna apny reusible resource ko rakh dena ha, or phir sab other files like (main.tf) ma apna in module ko call krna ha.** is tarha sa ap terraform ma reusibilty ko apply ker sakhty hn.
     
 
