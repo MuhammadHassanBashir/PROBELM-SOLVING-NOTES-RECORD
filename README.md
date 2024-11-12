@@ -1861,3 +1861,7 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
 
 
     sudo apt remove <package_name>
+
+## site for learning terraform content
+
+    https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code
