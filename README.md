@@ -2443,3 +2443,75 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       gcloud run services list
       gcloud config set account ${disearchmt_dev} && gcloud config set project disearchmt-dev
       gcloud run services list
+
+## script  for creating the service account which help you to authenticate the gcp cloud from jenkins or any other server
+      
+      #!/bin/bash
+      set -e
+      # List of projects
+      projects=(
+          "disearch"
+          "disearchmt-dev"
+          "pcpeprod"
+          "cdc-oman-st"
+          "disearch-vertexai"
+          "diseracharetecprod"
+          "lumos-disearch-st"
+          "world-learning-400909"
+      )
+      
+      # Service account name and display name
+      SERVICE_ACCOUNT_NAME="jenkins"
+      DISPLAY_NAME="Jenkins Service Account"
+      ROLES=(
+          "roles/artifactregistry.repoAdmin"      # Artifact Registry Create-on-Push Repository Administrator
+          "roles/run.developer"                   # Cloud Run Developer
+          "roles/run.builder"                     # Delete, Download & Upload Artifacts
+          "roles/container.serviceAgent"          # Kubernetes Engine Service Agent
+          "roles/cloudfunctions.developer"        # Cloud Functions Developer
+          "roles/pubsub.editor"                   # Pub/Sub Editor Update & Create Pub/Sub Topics & Subscription
+          "roles/cloudsql.viewer"                 # Provides read-only access to Cloud SQL resources.
+          "roles/storage.objectViewer"            # Grants access to view objects and their metadata, excluding ACLs. Can also list the objects in a bucket.  
+          "roles/secretmanager.secretAccessor"     # Secret Manager Secret Accessor
+          "roles/secretmanager.secretVersionManager"  # Secret Manager Secret Version Manager
+          "roles/secretmanager.viewer"            # To list down secrets
+      )
+      
+      # Directory to save service account keys
+      KEY_DIR="./service-account-keys"
+      mkdir -p $KEY_DIR
+      
+      # Create the service account, assign roles, and generate keys for each project
+      for project in "${projects[@]}"; do
+          echo "Processing project: $project"
+      
+          # Create the service account
+          gcloud iam service-accounts create $SERVICE_ACCOUNT_NAME \
+              --display-name="$DISPLAY_NAME" \
+              --project=$project
+      
+          # Assign roles to the service account
+          for role in "${ROLES[@]}"; do
+              gcloud projects add-iam-policy-binding $project \
+                  --member="serviceAccount:$SERVICE_ACCOUNT_NAME@$project.iam.gserviceaccount.com" \
+                  --role="$role"
+          done
+      
+          # Generate and download the service account key
+          gcloud iam service-accounts keys create "$KEY_DIR/$project.json" \
+              --iam-account="$SERVICE_ACCOUNT_NAME@$project.iam.gserviceaccount.com" \
+              --project=$project
+      
+          echo "Service account, roles, and key file created for project: $project"
+      done
+      
+      echo "All projects processed successfully. Keys are saved in $KEY_DIR."
+
+
+    after that, use below command for authenticate the service account using key from jenkins server, for this you need to download key first from gcp  and save keys in jenkins server file.. after that use below command
+
+    gcloud auth activate-service-account my-service-account@my-project.iam.gserviceaccount.com --key-file=/path/to/key-file.json
+
+    gcloud config set account ${disearch} && gcloud config set project disearch   ---> we have create global variable in jenkins and give our service account name their.. 
+
+    once  done, your jenkins server get access of gcp cloud using service account..
