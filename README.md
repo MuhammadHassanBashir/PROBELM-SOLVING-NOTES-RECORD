@@ -2254,3 +2254,192 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
 ## Cannot access global variable in  jenkins pipeline from jenkins global variable setting under manage jenkins
 
     Remember: jenkins ma jb ap **manage jenkins ma > system** option ma jakr global variable ko set krty hn, tky y global variable sab pipeline ma access ho sakhy or ap inhy pipeline ma khi b use kr sakhty **tu ap na variable k names ma -(hifen) ki jaga _(underscore) use krna ha other wise jenkins pipeline fail hojy gi because wo global variable sa variable ko access ni kr rhi hogi..** 
+
+## jenkins example pipelines
+
+      gcloud config set account ${disearchmt-dev} && gcloud config set project disearchmt-dev  ---> this command will use service account for cloud authenticate.
+
+
+    RELEASE_VERSION=1.0.38-Hotfix
+    gcloud config set account ${disearch} && gcloud config set project disearch
+    docker pull gcr.io/disearch/vertexai-citation:latest
+    
+    docker tag gcr.io/disearch/vertexai-citation:latest gcr.io/disearch-vertexai/vertexai-citation:$RELEASE_VERSION
+    docker tag gcr.io/disearch/vertexai-citation:latest gcr.io/pcpeprod/vertexai-citation:$RELEASE_VERSION
+    docker tag gcr.io/disearch/vertexai-citation:latest gcr.io/diseracharetecprod/vertexai-citation:$RELEASE_VERSION
+    docker tag gcr.io/disearch/vertexai-citation:latest gcr.io/lumos-disearch-st/vertexai-citation:$RELEASE_VERSION
+    docker tag gcr.io/disearch/vertexai-citation:latest gcr.io/cdc-oman-st/vertexai-citation:$RELEASE_VERSION
+    
+    gcloud config set account ${disearch_vertexai} && gcloud config set project disearch-vertexai
+    docker push gcr.io/disearch-vertexai/vertexai-citation:$RELEASE_VERSION
+    gcloud container clusters get-credentials disearch-cluster --zone us-central1-c --project disearch-vertexai
+    kubectl set image deployment/vertexai-citation-deployment vertexai-citation=gcr.io/disearch-vertexai/vertexai-citation:$RELEASE_VERSION
+    
+    gcloud config set account ${pcpeprod} && gcloud config set project pcpeprod
+    docker push gcr.io/pcpeprod/vertexai-citation:$RELEASE_VERSION
+    gcloud container clusters get-credentials disearch-cluster --zone us-central1-c --project pcpeprod
+    kubectl set image deployment/vertexai-citation-deployment vertexai-citation=gcr.io/pcpeprod/vertexai-citation:$RELEASE_VERSION
+    
+    gcloud config set account ${diseracharetecprod} && gcloud config set project diseracharetecprod
+    docker push gcr.io/diseracharetecprod/vertexai-citation:$RELEASE_VERSION
+    gcloud container clusters get-credentials disearch-cluster --zone us-central1-c --project diseracharetecprod
+    kubectl set image deployment/vertexai-citation-deployment vertexai-citation=gcr.io/diseracharetecprod/vertexai-citation:$RELEASE_VERSION
+    
+    gcloud config set account ${lumos_disearch_st} && gcloud config set project lumos-disearch-st
+    docker push gcr.io/lumos-disearch-st/vertexai-citation:$RELEASE_VERSION
+    gcloud container clusters get-credentials disearch-cluster --zone us-central1-c --project lumos-disearch-st
+    kubectl set image deployment/vertexai-citation-deployment vertexai-citation=gcr.io/lumos-disearch-st/vertexai-citation:$RELEASE_VERSION
+    
+    gcloud config set account ${cdc_oman_st} && gcloud config set project cdc-oman-st
+    docker push gcr.io/cdc-oman-st/vertexai-citation:$RELEASE_VERSION
+    gcloud container clusters get-credentials disearch-cluster --zone us-central1-c --project cdc-oman-st
+    kubectl set image deployment/vertexai-citation-deployment vertexai-citation=gcr.io/cdc-oman-st/vertexai-citation:$RELEASE_VERSION
+    
+
+    gcloud config set account ${disearch} && gcloud config set project disearch
+    docker build -f Dockerfile -t gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT .
+    docker tag gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT gcr.io/disearch/multi-model-doc-chat:latest
+    docker push gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT
+    docker push gcr.io/disearch/multi-model-doc-chat:latest
+    gcloud container clusters get-credentials search-app-dev --zone us-central1-c --project disearch
+    kubectl set image deployment/multi-model-doc-chat-deployment multi-model-doc-chat=gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT
+    gcloud run deploy multi-model-doc-chat \
+    --image=gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT \
+    --set-env-vars= \
+    --set-secrets=DB_HOST=DB_HOST:latest,DB_PASSWORD=DB_PASSWORD:latest,DB_USER=DB_USER:latest,DB_SCHEMA=DB_SCHEMA:latest,MULTI_MODEL_GCP_BUCKET=MULTI_MODEL_GCP_BUCKET:latest,vertexai-referer=vertexai-referer:latest \
+    --region=us-east1 \
+    --project=disearch
+    gcloud run services update-traffic multi-model-doc-chat --to-latest --region us-east1
+    
+
+    gcloud config set account ${disearchmt_dev} && gcloud config set project disearchmt-dev
+    docker tag gcr.io/disearch/multi-model-doc-chat:dev-$GIT_COMMIT gcr.io/disearchmt-dev/multi-model-doc-chat:dev-$GIT_COMMIT
+    docker push gcr.io/disearchmt-dev/multi-model-doc-chat:dev-$GIT_COMMIT
+    gcloud container clusters get-credentials disearch-cluster --zone us-central1-c --project disearchmt-dev
+    kubectl set image deployment/multi-model-doc-chat-deployment multi-model-doc-chat=gcr.io/disearchmt-dev/multi-model-doc-chat:dev-$GIT_COMMIT
+    gcloud run deploy multi-model-doc-chat \
+    --image=gcr.io/disearchmt-dev/multi-model-doc-chat:dev-$GIT_COMMIT \
+    --set-env-vars= \
+    --set-secrets=DB_HOST=DB_HOST:latest,DB_USER=DB_USER:latest,DB_PASSWORD=DB_PASSWORD:latest,DB_SCHEMA=DB_SCHEMA:latest,MULTI_MODEL_GCP_BUCKET=MULTI_MODEL_GCP_BUCKET:latest,vertexai-referer=vertexai-referer:latest \
+    --region=us-central1 \
+    --project=disearchmt-dev 
+    gcloud run services update-traffic multi-model-doc-chat --to-latest --region=us-central1
+    RELEASE_VERSION=1.0.40
+
+    gcloud config set account ${disearch} && gcloud config set project disearch
+    docker build -f Dockerfile -t gcr.io/disearch/multi-model-doc-chat:$RELEASE_VERSION .
+    
+    
+    docker tag gcr.io/disearch/multi-model-doc-chat:$RELEASE_VERSION gcr.io/pcpeprod/multi-model-doc-chat:$RELEASE_VERSION
+    docker tag gcr.io/disearch/multi-model-doc-chat:$RELEASE_VERSION gcr.io/cdc-oman-st/multi-model-doc-chat:$RELEASE_VERSION
+    docker tag gcr.io/disearch/multi-model-doc-chat:$RELEASE_VERSION gcr.io/disearch-vertexai/multi-model-doc-chat:$RELEASE_VERSION
+    docker tag gcr.io/disearch/multi-model-doc-chat:$RELEASE_VERSION gcr.io/diseracharetecprod/multi-model-doc-chat:$RELEASE_VERSION
+    docker tag gcr.io/disearch/multi-model-doc-chat:$RELEASE_VERSION gcr.io/lumos-disearch-st/multi-model-doc-chat:$RELEASE_VERSION
+    docker tag gcr.io/disearch/multi-model-doc-chat:$RELEASE_VERSION gcr.io/world-learning-400909/multi-model-doc-chat:$RELEASE_VERSION
+    
+    
+    gcloud config set account ${pcpeprod} && gcloud config set project pcpeprod
+    docker push gcr.io/pcpeprod/multi-model-doc-chat:$RELEASE_VERSION
+    gcloud run deploy multi-model-doc-chat \
+    --image=gcr.io/pcpeprod/multi-model-doc-chat:$RELEASE_VERSION \
+    --allow-unauthenticated \
+    --port=8000 \
+    --service-account=913855764051-compute@developer.gserviceaccount.com \
+    --min-instances=1 \
+    --set-env-vars= \
+    --set-cloudsql-instances=pcpeprod:us-central1:disearch-db \
+    --vpc-connector=projects/pcpeprod/locations/us-central1/connectors/disearch-vpc-connector \
+    --vpc-egress=private-ranges-only \
+    --set-secrets=DB_HOST=DB_HOST:latest,DB_USER=DB_USER:latest,DB_PASSWORD=DB_PASSWORD:latest,DB_SCHEMA=DB_SCHEMA:latest,vertexai-referer=vertexai-referer:latest,MULTI_MODEL_GCP_BUCKET=MULTI_MODEL_GCP_BUCKET:latest,redis-url=redis-url:latest,OPENAI_API_KEY=OPENAI_API_KEY:latest \
+    --region=us-central1 \
+    --project=pcpeprod
+    gcloud run services update-traffic multi-model-doc-chat --to-latest --region=us-central1
+    
+
+    gcloud config set account ${cdc_oman_st} && gcloud config set project cdc-oman-st
+    docker push gcr.io/cdc-oman-st/multi-model-doc-chat:$RELEASE_VERSION
+    gcloud run deploy multi-model-doc-chat \
+    --image=gcr.io/cdc-oman-st/multi-model-doc-chat:$RELEASE_VERSION \
+    --allow-unauthenticated \
+    --port=8000 \
+    --service-account=196923721334-compute@developer.gserviceaccount.com \
+    --min-instances=1 \
+    --set-env-vars= \
+    --set-cloudsql-instances=cdc-oman-st:us-central1:disearch-db \
+    --vpc-connector=projects/cdc-oman-st/locations/us-central1/connectors/disearch-vpc-connector \
+    --vpc-egress=private-ranges-only \
+    --set-secrets=DB_HOST=DB_HOST:latest,DB_USER=DB_USER:latest,DB_PASSWORD=DB_PASSWORD:latest,DB_SCHEMA=DB_SCHEMA:latest,vertexai-referer=vertexai-referer:latest,MULTI_MODEL_GCP_BUCKET=MULTI_MODEL_GCP_BUCKET:latest,redis-url=redis-url:latest,OPENAI_API_KEY=OPENAI_API_KEY:latest \
+    --region=us-central1 \
+    --project=cdc-oman-st
+    gcloud run services update-traffic multi-model-doc-chat --to-latest --region=us-central1
+
+
+    gcloud config set account ${disearch_vertexai} && gcloud config set project disearch-vertexai
+    docker push gcr.io/disearch-vertexai/multi-model-doc-chat:$RELEASE_VERSION
+    gcloud config set project disearch-vertexai
+    gcloud run deploy multi-model-doc-chat \
+    --image=gcr.io/disearch-vertexai/multi-model-doc-chat:$RELEASE_VERSION \
+    --allow-unauthenticated \
+    --port=8000 \
+    --service-account=714482271007-compute@developer.gserviceaccount.com \
+    --min-instances=1 \
+    --set-env-vars= \
+    --set-cloudsql-instances=disearch-vertexai:us-central1:disearch-db \
+    --vpc-connector=projects/disearch-vertexai/locations/us-central1/connectors/disearch-vpc-connector \
+    --vpc-egress=private-ranges-only \
+    --set-secrets=DB_HOST=DB_HOST:latest,DB_USER=DB_USER:latest,DB_PASSWORD=DB_PASSWORD:latest,DB_SCHEMA=DB_SCHEMA:latest,vertexai-referer=vertexai-referer:latest,MULTI_MODEL_GCP_BUCKET=MULTI_MODEL_GCP_BUCK…
+
+    #script      
+
+    #!/bin/bash
+      
+      # Define the list of images
+      images=(
+          "gcr.io/disearch/doc_chat:latest"
+          "gcr.io/disearch/file-upload-pubsub:latest"
+          "gcr.io/disearch/pdf-convert-pubsub:latest"
+          "gcr.io/disearch/metadata-pubsub:latest"
+          "gcr.io/disearch/vertex-ai-followup"
+          "gcr.io/disearch/vertex-ai-summary"
+          "gcr.io/disearch/vertexai-citation"
+          "gcr.io/disearch/vertexai"
+      )
+      
+      # Define the list of target projects
+      projects=(
+          "gcr.io/diseracharetecprod"
+          "gcr.io/disearch-vertexai"
+          "gcr.io/pcpeprod"
+      )
+      
+      # Loop through each image and project to pull and push
+      for image in "${images[@]}"; do
+          # Pull the image from disearch
+          echo "Pulling image: $image"
+          docker pull "$image"
+      
+          # Get image name without the project prefix
+          image_name=$(echo "$image" | cut -d'/' -f 3-)
+      
+          # Push to each project
+          for project in "${projects[@]}"; do
+              target_image="$project/$image_name"
+              echo "Tagging and pushing image to: $target_image"
+              
+              # Tag the image for the target project
+              docker tag "$image" "$target_image"
+      
+              # Push the tagged image
+              docker push "$target_image"
+          done
+      done
+
+
+      ## command for service account
+      echo "Image pull and push process completed."
+      gcloud config set account ${disearch} && gcloud config set project disearch
+      gcloud run services list
+      gcloud config set account ${pcpeprod} && gcloud config set project pcpeprod
+      gcloud run services list
+      gcloud config set account ${disearchmt_dev} && gcloud config set project disearchmt-dev
+      gcloud run services list
