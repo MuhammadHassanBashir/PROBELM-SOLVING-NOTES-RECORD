@@ -2529,3 +2529,5 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     2- Determine Access to the Internet
     Public Subnet: Resources in this subnet can have direct access to the internet (e.g., EC2 instances with public IPs can send and receive traffic to/from the internet).
     Private Subnet: Resources cannot directly access the internet without a NAT gateway or instance.
+
+    public subnet per internet sa traffic ati ha,or subnet sa traffic internet per wapis b jati ha, but private subnet per internet sa traffic ni asakhti, but private subnet ki internet per traffic ja sakhti ha using NAT gatway attached to with private subnet, jo k private subnet ki traffic ko subnet per send kry ga, or phir waha sa traffic route table sa hoty howy internet per jarhi hogi.. 
