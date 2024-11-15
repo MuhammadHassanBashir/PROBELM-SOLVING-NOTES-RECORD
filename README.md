@@ -2515,3 +2515,17 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     gcloud config set account ${disearch} && gcloud config set project disearch   ---> we have create global variable in jenkins and give our service account name their.. 
 
     once  done, your jenkins server get access of gcp cloud using service account..
+
+
+## How to determine whether a subnet is public or private, 
+
+    you can evaluate its configuration based on routing and accessibility. Here's a step-by-step guide:
+    
+    1. Check the Subnet's Route Table
+    Public Subnet: The route table associated with the subnet includes a route that directs traffic to the internet gateway.
+    Example: 0.0.0.0/0 → Internet Gateway (igw-xxxxx).
+    Private Subnet: The route table does not include a route to the internet gateway. Instead, it may route traffic to a NAT gateway or NAT instance for outbound internet access.
+    
+    2- Determine Access to the Internet
+    Public Subnet: Resources in this subnet can have direct access to the internet (e.g., EC2 instances with public IPs can send and receive traffic to/from the internet).
+    Private Subnet: Resources cannot directly access the internet without a NAT gateway or instance.
