@@ -2607,7 +2607,91 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       If you're scaling, consider setting up a Google Workspace or Cloud Identity to create an organization for better resource management.
             
       
+## how to create organization and project inside the orgainzation
+      
+      How to create organization in gcp:
+      ----------------------------------
+      
+      for organization you need to have
+      
+      1- domain          --> purchase domain from "domains.google.com" > click "get new domain" > search domain is available or not.> complete payment process
+      2- workspace account
+      
+      once purchase the domain, now complete the google workspace account sets.
+      
+      **you need to have google workspace account**
+      
+      browse the "google workspace" on google and start completing workspace process.
+      
+      like give:
+      
+      name:
+      email:
+      workspace will be used:
+      i will setup workspace with specfic domain:   give domain name here     ---> which you have just purchased
+      
+      after this it will switch the page to workspace account.
+      
+      now here create user for your organization: click on **add user** and give information
+      
+      like:
+      name: 
+      surname:
+      primary email:
+      secondary email:
+      phone:
       
       
+      now login organization with new user using, brows and open "console.cloud.google.com" and you would see your created organization will pop up in gcp organization section.
       
+      
+      now create project inside the organization
+      -------------------------------------------
+      
+      remember: you can also create project without creating the organization 
+      
+      Create a Project
+      Projects are the primary way to organize resources in GCP. They belong to an organization (if one exists) or to a user account.
+      
+      Steps to Create a Project:
+      Log in to Google Cloud Console:
+      
+      Go to Google Cloud Console.
+      Navigate to Projects:
+      
+      Click on the Project Selector dropdown (top menu bar).
+      Click New Project.
+      Enter Project Details:
+      
+      Project Name: Choose a unique name for your project.
+      Organization: If you have an organization, select it here. If not, the project will belong to your Google account.
+      Billing Account: Assign a billing account. If you don’t have one, set up a free trial or create a billing account in the Billing section of the console.
+      Create the Project:
+      
+      remember: if you want to get control of organization level, do this
+
+      - create organization by following above mention steps
+      - once you successfully create organization, then create folder inside the organization. 
+      - now in that folder you can create multiple projects. 
+
+      now when you apply some permission at organization level using that folders, the permission will autmatically apply on all projects inside the folder.
+
+     you can also create projects under organization without creating folders and you can also set permission at organization level using one of the projects under this organization, but it will only apply on that organization project only but if you want to apply organization permission on multiple project than you should use folder,
+
+
+## How to create users in aws under IAM
+
+    steps to create user
+    --------------------
+
+    IAM > user > adduser > username > click on "provide user access to aws management console"> click on "i want to create iam user"> generate custom/autoassign password >next>click on  "attach direct policy to user" > click on "administrator access" > next >review this >create user
+    
+    
+    then get user credentails
+    -------------------------
+    
+    - console url for login
+    - username
+    - password
+    create user in aws
       
