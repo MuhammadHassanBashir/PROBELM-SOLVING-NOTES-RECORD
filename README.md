@@ -2531,3 +2531,41 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     Private Subnet: Resources cannot directly access the internet without a NAT gateway or instance.
 
     public subnet per internet sa traffic ati ha,or subnet sa traffic internet per wapis b jati ha, but private subnet per internet sa traffic ni asakhti, but private subnet ki internet per traffic ja sakhti ha using NAT gatway attached to with private subnet, jo k private subnet ki traffic ko subnet per send kry ga, or phir waha sa traffic route table sa hoty howy internet per jarhi hogi.. 
+
+## Difference b/w application and network loadbalancer
+
+      Application Load Balancer (ALB) and Network Load Balancer (NLB) operate on different layers of the OSI model:
+      
+      Application Load Balancer (ALB)
+      Layer: Layer 7 (Application Layer)
+      Details:
+      Operates at the HTTP/HTTPS level.
+      Designed for content-based routing (e.g., routes requests based on hostnames, paths, headers, or query strings).
+      Supports advanced features like WebSocket, TLS termination, and redirects.
+      Ideal for applications that rely on HTTP protocols, such as REST APIs, websites, or web apps.
+      
+
+      Network Load Balancer (NLB)
+      Layer: Layer 4 (Transport Layer)
+      Details:
+      Operates at the TCP/UDP level.
+      Focused on connection-based routing (e.g., routes traffic based on IP addresses and ports).
+      Provides ultra-low latency and can handle millions of requests per second.
+      Suitable for applications that require high performance and low latency, such as gaming, streaming, or non-HTTP applications.
+      
+
+      Key Differences
+      Feature	Application Load Balancer (ALB)	Network Load Balancer (NLB)
+      OSI Layer	Layer 7	Layer 4
+      Protocol Support	HTTP, HTTPS	TCP, UDP
+      Routing	Content-based (host, path, etc.)	Connection-based (IP, port)
+      Latency	Slightly higher	Extremely low
+      
+      Use Case	Web applications, APIs	High-performance, low-latency apps
+      If you’re deploying an application, the choice between ALB and NLB depends on whether your application needs Layer 7 features like path-based routing or simpler Layer 4 features like load balancing for non-HTTP traffic. Let me know if you want to discuss further!
+      
+
+
+
+
+
