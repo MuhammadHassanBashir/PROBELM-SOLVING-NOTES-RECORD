@@ -2717,6 +2717,7 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     
     Amazon Redshift:
     A fully managed data warehouse optimized for analyzing structured data.
+    
     Unstructured Databases
     Definition: Databases designed to handle data that does not fit into a traditional table structure or lacks a specific schema (e.g., documents, images, videos, logs).
     Characteristics:
