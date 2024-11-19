@@ -2783,10 +2783,12 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
         
         High-performance, fully managed relational database.
         Compatible with MySQL and PostgreSQL.
+        
         Amazon Redshift:
         
         Fully managed data warehouse for structured data analytics.
         Optimized for complex queries and Business Intelligence (BI) applications.
+        
         Unstructured Databases (NoSQL, Object, and Other Non-Relational Databases)
         These databases handle flexible or schema-less data types, including documents, key-value pairs, and objects.
         
