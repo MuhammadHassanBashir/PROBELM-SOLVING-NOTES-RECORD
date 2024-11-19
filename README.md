@@ -2761,10 +2761,10 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
      
 ## Structured data
    
-   Structured data is particularly useful when you’re dealing with discrete, numeric data. Examples of this type of data include financial operations, sales and marketing figures, and scientific modeling. You can also use structured data in any case where records with multiple, short-entry text, numeric, and enumerated fields are required, such as HR records, inventory listings, and housing data.
+   Structured data is particularly useful when you’re dealing with discrete, numeric data. **Examples of this type of data include financial operations, sales and marketing figures, and scientific modeling. You can also use structured data in any case where records with multiple, short-entry text, numeric, and enumerated fields are required, such as HR records, inventory listings, and housing data.**
     
 ## Unstructured data
    
-   Unstructured data is used when a record is required and the data won’t fit into a structured data format. Examples include video monitoring, company documents, and social media posts. You can also use unstructured data where it isn’t efficient to store the data in a structured format, such as Internet of Things (IoT) sensor data, computer system logs, and chat transcripts.
+   Unstructured data is used when a record is required and the data won’t fit into a structured data format. **Examples include video monitoring, company documents, and social media posts. You can also use unstructured data where it isn’t efficient to store the data in a structured format, such as Internet of Things (IoT) sensor data, computer system logs, and chat transcripts.**
 
 
