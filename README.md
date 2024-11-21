@@ -2854,7 +2854,8 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       Expose each cluster service using a regional NEG (Network Endpoint Group).
       Attach NEGs as backends to the global load balancer.
       Add DNS records to map the domain to the global load balancer.
-      AWS Global Accelerator
+     
+      2- **AWS Global Accelerator**
       Setup:
       
       Use AWS Global Accelerator to route traffic to regional endpoints.
@@ -2863,12 +2864,14 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       
       AWS provides a static global IP for Global Accelerator.
       Update your DNS (e.g., Route53) to point to this global IP.
+      
       Traffic Routing:
       
       Global Accelerator routes traffic based on health checks, latency, or geo-location.
-      2. Use an External DNS and Traffic Management Tool
+      
+      2. **Use an External DNS and Traffic Management Tool**
       DNS Providers with Geo-Routing
-      Providers like Cloudflare, Akamai, or AWS Route 53 can handle geographic routing by resolving your DNS requests to the nearest cluster.
+      Providers like **Cloudflare**, Akamai, or **AWS Route 53 can handle geographic routing by resolving your DNS requests to the nearest cluster.**
       Steps:
       
       Deploy your application in both clusters.
@@ -2882,7 +2885,8 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       Load balancer in Region 1.
       Load balancer in Region 2.
       Route 53 dynamically resolves DNS queries to the region with the lowest latency.
-      3. Using Service Mesh with Multi-Cluster Setup
+     
+     3. Using Service Mesh with Multi-Cluster Setup
       Istio Multi-Cluster with External DNS
       Deploy Istio in Both Clusters:
       
