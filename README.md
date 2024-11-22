@@ -2905,4 +2905,8 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
 ## what is /dev
 
     The /dev directory in Ubuntu contains device files that represent hardware and software interfaces, such as storage, input/output devices, and system utilities. It acts as the communication point between the system and hardware components
+
+## Building image from local dockerfile and pushing it to gcr
+
+      gcloud builds submit --tag gcr.io/world-learning-400909/disearch:latest --timeout=9000 --machine-type=e2-highcpu-32
       
