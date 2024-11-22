@@ -2901,4 +2901,8 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
       Failover:
       
       Configure Istio for cross-cluster failover if one region becomes unavailable.
+
+## what is /dev
+
+    The /dev directory in Ubuntu contains device files that represent hardware and software interfaces, such as storage, input/output devices, and system utilities. It acts as the communication point between the system and hardware components
       
