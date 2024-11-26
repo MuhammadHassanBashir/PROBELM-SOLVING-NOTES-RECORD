@@ -3471,8 +3471,54 @@ What is the difference b/w liveness prob, readiness prob, startup prob.
         If your StatefulSet uses Persistent Volumes (PVs), these volumes are also maintained across pod restarts, ensuring that not only the IP but also the storage and state are retained.
         Summary:
         Yes, the pod will keep the same IP address even after it restarts in a StatefulSet. This is one of the key features of StatefulSets, which is useful for stateful applications like databases that rely on persistent network identities.
-        
-        
+
+## What is the difference b/w statefullset and deamonset
+
+      StatefulSet and DaemonSet are both Kubernetes controllers used to manage pods, but they serve different purposes and have key differences in how they manage and deploy pods. Here's a breakdown of the differences:
+      
+      1. Purpose
+      StatefulSet: Manages stateful applications that require stable identities (names and IPs), persistent storage, and ordered deployment/termination. It is used for applications that maintain state, such as databases (e.g., MySQL, PostgreSQL).
+      DaemonSet: Ensures that a copy of a pod is running on each node in the cluster, or a subset of nodes. It is used for tasks that require a pod to be present on all nodes, such as logging agents, monitoring agents, or network proxies.
+      2. Pod Identity
+      StatefulSet: Pods are given a stable, unique identity with persistent names and network IDs (e.g., myapp-0, myapp-1). The identity is preserved across restarts.
+      DaemonSet: Pods do not have stable, unique identities like in StatefulSet. Each pod in the DaemonSet is typically independent, and its identity is tied to the node it is running on (e.g., node-name-pod).
+      3. Pod Naming
+      StatefulSet: Pods are given ordinal names with a stable suffix (e.g., myapp-0, myapp-1, myapp-2). This ensures each pod has a stable identity.
+      DaemonSet: Pods are given names based on the node they are running on, but there is no ordinal numbering. Each pod runs on its respective node.
+      4. Pod Scheduling
+      StatefulSet: Pods are scheduled in a specific order. If a new pod is created, it is created sequentially (e.g., myapp-0 first, then myapp-1, etc.). This ensures ordered deployment and scaling.
+      DaemonSet: Pods are scheduled to run on all nodes (or a subset of nodes based on labels), but there is no specific order in which the pods are scheduled.
+      5. Scaling
+      StatefulSet: Scaling a StatefulSet involves adding or removing pods in sequential order, ensuring that each pod gets a stable identity. When scaling down, pods are terminated in reverse order.
+      DaemonSet: Scaling is handled automatically. If a new node is added to the cluster, a pod from the DaemonSet is automatically scheduled on that node. If a node is removed, the pod on that node is deleted.
+      6. Storage
+      StatefulSet: Can be used with Persistent Volumes (PVs), where each pod in the StatefulSet can have its own persistent storage that survives pod restarts. Each pod gets its own dedicated volume.
+      DaemonSet: Pods do not typically use persistent storage unless configured otherwise. Each pod is independent, and their storage is not tied to any persistent volume.
+      7. Use Cases
+      StatefulSet: Used for applications that need stable identities, persistent storage, and ordered deployment, such as databases (e.g., MongoDB, MySQL, Cassandra) or distributed systems that require stable network identities.
+      DaemonSet: Used for cluster-wide services that need to run on all or a specific set of nodes, such as logging, monitoring, networking agents, or security tools that need to be deployed to every node in the cluster.
+      8. Network Identity
+      StatefulSet: Provides stable DNS names for each pod (e.g., myapp-0.myapp.svc.cluster.local) that can be used by other pods for consistent networking and communication.
+      DaemonSet: Does not provide stable DNS names for each pod. Pods are usually identified by the node they are on.
+      9. Termination Behavior
+      StatefulSet: Pods are terminated in reverse order (i.e., last pod created is terminated first) to maintain order.
+      DaemonSet: Pods are terminated as needed, and there is no specific termination order.
+      Summary of Key Differences:
+      Feature	StatefulSet	DaemonSet
+      Purpose	Manages stateful applications with stable identities	Ensures a pod runs on every node in the cluster
+      Pod Identity	Stable, unique identity (e.g., myapp-0)	No stable identity, tied to the node
+      Pod Naming	Ordinal naming (e.g., myapp-0, myapp-1)	Node-based naming, no ordinal numbering
+      Pod Scheduling	Sequential, ordered pod deployment	Pods scheduled on every node
+      Scaling	Sequential scaling, adding/removing pods in order	Automatic scaling across nodes
+      Storage	Persistent Volumes with unique storage for each pod	No persistent storage, unless configured
+      Use Case	Stateful applications (e.g., databases, clustered services)	Cluster-wide services (e.g., logging, monitoring)
+      Network Identity	Stable DNS names for each pod	No stable DNS names
+      Termination Behavior	Ordered pod termination (reverse order)	No specific order
+      When to Use Each:
+      StatefulSet: Use for applications that require stable identities, persistent storage, and ordered deployment (e.g., databases, distributed systems).
+      DaemonSet: Use for applications that need to run on every node or a subset of nodes, such as monitoring tools, logging agents, or network proxies.
+      In summary, StatefulSet is suitable for applications requiring stable identities and persistent storage, whereas DaemonSet is used for running a pod on every node, typically for monitoring, logging, or other cluster-wide services.
+              
         
         
         
