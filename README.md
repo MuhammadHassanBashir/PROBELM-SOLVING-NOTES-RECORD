@@ -2974,7 +2974,7 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     In summary, reconfiguration is for making direct changes to the infrastructure setup, while migration involves moving or upgrading your infrastructure or state to a new     context.
     
     
-## what is terraform backend and why not we use github for terraform backend instead of cloud bucket
+## What is terraform backend and why not we use github for terraform backend instead of cloud bucket
 
     What is a Terraform Backend?
     
