@@ -3520,7 +3520,7 @@ What is the difference b/w liveness prob, readiness prob, startup prob.
       In summary, StatefulSet is suitable for applications requiring stable identities and persistent storage, whereas DaemonSet is used for running a pod on every node, typically for monitoring, logging, or other cluster-wide services.
               
         
-## AWS RDS
+## AWS RDS(Creating an end-to-end infrastructure on AWS that includes setting up RDS (Relational Database Service) with best practices for security, data integration, and optimal usage for various environments involves several steps.)
 
       Creating an end-to-end infrastructure on AWS that includes setting up RDS (Relational Database Service) with best practices for security, data integration, and optimal usage for various environments involves several steps. Here’s a practical example of how to approach this:
       
