@@ -3020,6 +3020,47 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
     Conclusion:
     Using GitHub to store Terraform state files is not ideal because it lacks the features needed for safe, concurrent, and efficient state management (such as locking, versioning, and secure access). Cloud-based storage solutions (like AWS S3, Google Cloud Storage, or Terraform Cloud) are designed specifically for managing Terraform state files and provide the necessary features for secure and scalable infrastructure management.
 
+## What to do on avoid displaying sensitive information like the RDS ARN or password in your Terraform plan or output,
+
+    If you want to avoid displaying sensitive information like the RDS ARN or password in your Terraform plan or output, you can take several approaches to securely manage and hide sensitive values.
+    
+    1. Mark the Variables as Sensitive
+    You can mark variables or outputs as sensitive in Terraform to prevent them from being shown in the plan or output. This helps avoid exposing sensitive data, such as passwords or ARNs, in the Terraform CLI output.
+    
+    Example for Variables:
+    When defining your variable for RDS password or ARN, you can mark it as sensitive like this:
+    
+    hcl
+    Copy code
+    variable "rds_password" {
+      description = "The password for the RDS instance"
+      type        = string
+      sensitive   = true
+    }
+    
+    variable "rds_arn" {
+      description = "The ARN for the RDS instance"
+      type        = string
+      sensitive   = true
+    }
+    Example for Outputs:
+    When defining outputs that you don't want to display in the Terraform plan or apply output, you can mark them as sensitive:
+    
+    hcl
+    Copy code
+    output "rds_password" {
+      value     = aws_db_instance.example.password
+      sensitive = true
+    }
+    
+    output "rds_arn" {
+      value     = aws_db_instance.example.arn
+      sensitive = true
+    }
+    With sensitive = true, Terraform will not display these values in the CLI output, even though they will still be stored in the Terraform state.
+    
+
+
 
 
 
