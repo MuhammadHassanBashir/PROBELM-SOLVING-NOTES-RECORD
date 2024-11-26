@@ -2909,4 +2909,33 @@ Purpose: lsof lists all open files, including network sockets and ports, as ever
 ## Building image from local dockerfile and pushing it to gcr
 
       gcloud builds submit --tag gcr.io/world-learning-400909/disearch:latest --timeout=9000 --machine-type=e2-highcpu-32
-      
+
+## what is the difference b/w resource and module in terraform
+    
+    The difference between a Terraform resource and a Terraform module is as follows:
+    
+    Terraform Resource:
+    A resource is a single, individual infrastructure component that Terraform manages. It could represent an AWS EC2 instance, an S3 bucket, a database, etc.
+    Example:
+    hcl
+    Copy code
+    resource "aws_instance" "example" {
+      ami           = "ami-0c55b159cbfafe1f0"
+      instance_type = "t2.micro"
+    }
+    Terraform Module:
+    A module is a collection of resources that are grouped together to define a reusable unit of infrastructure. Modules can contain resources, output values, input variables, and other modules.
+    Modules allow you to organize and reuse infrastructure code across multiple configurations.
+    You can create custom modules or use public ones from the Terraform Registry.
+    Example:
+    hcl
+    Copy code
+    module "network" {
+      source = "./modules/network"
+      cidr_block = "10.0.0.0/16"
+    }
+    Key Differences:
+    Scope: A resource is a single unit of infrastructure, while a module is a group of resources.
+    Reusability: Modules are designed to be reusable, while resources are typically specific to one configuration.
+    Organization: Modules help organize complex configurations into smaller, more manageable pieces.
+    In summary, resources are the individual components that Terraform manages, while modules are collections of resources that allow for better organization and reuse of infrastructure code
