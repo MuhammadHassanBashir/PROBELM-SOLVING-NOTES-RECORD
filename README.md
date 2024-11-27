@@ -3725,12 +3725,43 @@ What is QOS(Quality of Service)
     Cluster Stability: Ensures critical applications remain functional under high load.
     In short, QoS helps Kubernetes balance workloads and ensure high-priority applications are not disrupted by lower-priority ones.
     
-    
-    
-    
-    
-    
-   
+
+
+## What is the difference b/w side car and init container
+
+The difference between Sidecar and Init Container in Kubernetes lies in their purpose, lifecycle, and how they interact with the main application container. Here’s a detailed breakdown:
+
+Init Container 
+--------------
+
+1. Purpose
+   Preparation Tasks: Used to run initialization tasks before the main application container starts.
+
+   Examples: Setting up configurations, downloading dependencies, or checking external services.
+
+2. Lifecycle
+   Runs sequentially before the main container starts. The main container doesn’t start until all Init Containers complete successfully.
+
+   Stops after completing its task.
+
+3. Interaction with the Main Container
+   Has no direct interaction with the main container after completing its task.
+
+Sidecar
+-------
+
+1. Purpose
+   Enhancement/Support: Runs alongside the main application container to provide additional functionality or support.
+
+   Examples: Logging, monitoring, proxying traffic, or data synchronization.
+
+2. Lifecycle
+   Runs concurrently with the main container as part of the pod and remains active throughout the pod's lifecycle.
+
+   Runs continuously and only stops when the pod is terminated.
+
+3. Interaction with the Main Container
+   Works in tandem with the main container to enhance its functionality.
       
                   
                   
