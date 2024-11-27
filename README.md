@@ -3656,8 +3656,8 @@ What is the difference b/w liveness prob, readiness prob, startup prob.
       Conclusion
       By following this approach, you can design and implement a secure, scalable, and highly available RDS infrastructure on AWS. This involves selecting the right instance types, securing your RDS instances, integrating with other AWS services, and maintaining the system with proper monitoring and backups. Each decision depends on the environment (development, production) and specific application requirements.        
               
-What is QOS
-------------------------- 
+What is QOS(Quality of Service)
+------------------------------- 
 
     In Kubernetes, QoS (Quality of Service) refers to the classification of pods based on the resource requests and limits they define. It helps the Kubernetes scheduler and kubelet determine how to prioritize and allocate resources to pods, especially during times of resource contention.
     
