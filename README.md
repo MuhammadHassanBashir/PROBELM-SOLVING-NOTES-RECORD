@@ -3656,9 +3656,81 @@ What is the difference b/w liveness prob, readiness prob, startup prob.
       Conclusion
       By following this approach, you can design and implement a secure, scalable, and highly available RDS infrastructure on AWS. This involves selecting the right instance types, securing your RDS instances, integrating with other AWS services, and maintaining the system with proper monitoring and backups. Each decision depends on the environment (development, production) and specific application requirements.        
               
-              
-              
-              
+What is QOS
+------------------------- 
+
+    In Kubernetes, QoS (Quality of Service) refers to the classification of pods based on the resource requests and limits they define. It helps the Kubernetes scheduler and kubelet determine how to prioritize and allocate resources to pods, especially during times of resource contention.
+    
+    QoS classes ensure that critical workloads are given priority over less critical ones and manage how pods are treated when resources are limited.
+    
+    Kubernetes QoS Classes:
+    There are three QoS classes:
+    
+    1. Guaranteed
+    Criteria:
+    The pod's resource requests and limits are equal for all containers.
+    Both cpu and memory must have defined requests and limits.
+    Priority:
+    Highest priority.
+    These pods are the least likely to be evicted when a node is under resource pressure.
+    Example:
+    
+    yaml
+    Copy code
+    containers:
+    - name: app
+      resources:
+        requests:
+          memory: "1Gi"
+          cpu: "500m"
+        limits:
+          memory: "1Gi"
+          cpu: "500m"
+    2. Burstable
+    Criteria:
+    The pod has resource requests specified, but limits and requests are not equal.
+    One or more containers may have only requests or limits partially specified.
+    Priority:
+    Medium priority.
+    These pods can use additional resources if available but may be evicted if the node runs out of resources.
+    Example:
+    
+    yaml
+    Copy code
+    containers:
+    - name: app
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "250m"
+        limits:
+          memory: "1Gi"
+          cpu: "1"
+    3. BestEffort
+    Criteria:
+    The pod does not define any resource requests or limits for its containers.
+    Priority:
+    Lowest priority.
+    These pods are most likely to be evicted during resource contention.
+    They can only use resources when no other higher-priority pods need them.
+    Example:
+    
+    yaml
+    Copy code
+    containers:
+    - name: app
+    Why QoS is Important:
+    Resource Management: Helps Kubernetes allocate resources efficiently across workloads.
+    Eviction Handling: Determines which pods are evicted first during resource shortages.
+    Cluster Stability: Ensures critical applications remain functional under high load.
+    In short, QoS helps Kubernetes balance workloads and ensure high-priority applications are not disrupted by lower-priority ones.
+    
+    
+    
+    
+    
+    
+   
       
                   
                   
