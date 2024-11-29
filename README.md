@@ -3843,6 +3843,17 @@ Sidecar
       The goal of Terraform migration is to increase the velocity and reliability of deploying and managing modern cloud architectures.
 
 
+## How to create AWS account 
+
+    linke: aws.amazon.com
+    
+    steps:
+    -----
+    
+    create an aws account>root user email address(give email), AWS account name(give account name)>verify email address(now check email and verify email address. and get verfication code from email use this in next page, it will verify your email)>select personal use , give your address information>here you need to give your atm card information, it will basically verifying that card account no is correct or not.> next you need to give you phone na and enter correct capacha,(aws will send verfication code on your mobile.) you that code here>next select aws basic plan, now it will open the aws console..
+    
+
+
 
 
                   
