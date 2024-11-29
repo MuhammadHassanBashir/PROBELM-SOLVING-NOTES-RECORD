@@ -3824,8 +3824,12 @@ Sidecar
     One-time setup	Yes	No
     Continuous support	No	Yes
     In essence, Init Containers prepare the environment, while Sidecars extend and support the main application.
-    
-    
+
+
+## Facing issue that cloudrun is not running the container
+
+  Remember, always configure the container to listen on the same port that the application expects traffic. I faced an issue where my application was running on port 8000, but I mistakenly opened port 8080. As a result, Cloud Run was sending traffic to port 8080, receiving no response, and failing repeatedly. To avoid this, always ensure the container's listening port matches the application's expected port
+     
 
 
 
