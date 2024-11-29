@@ -3830,7 +3830,17 @@ Sidecar
 
   Remember, always configure the container to listen on the same port that the application expects traffic. I faced an issue where my application was running on port 8000, but I mistakenly opened port 8080. As a result, Cloud Run was sending traffic to port 8080, receiving no response, and failing repeatedly. To avoid this, always ensure the container's listening port matches the application's expected port
      
+## What is the difference b/w terraform reconfigure and terraform migration
 
+      Terraform reconfigure
+      
+      Uses the terraform init -reconfigure command to reconfigure a backend while ignoring any saved configuration. This option is used when the backend configuration file is corrupt or when you want to start fresh with a new backend.
+      
+      Terraform migration
+      
+      Uses the terraform init -migrate-state command to reconfigure the backend and attempt to migrate any existing state. 
+      When you change your backend configuration, Terraform will automatically detect the changes and ask if you want to migrate your existing state to the new configuration. You can respond "no" if you're just reconfiguring the same backend. 
+      The goal of Terraform migration is to increase the velocity and reliability of deploying and managing modern cloud architectures.
 
 
 
