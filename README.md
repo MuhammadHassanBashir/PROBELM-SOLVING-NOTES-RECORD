@@ -3859,12 +3859,18 @@ AWS CodeStar
   
   The key benefits of the AWS CodeStar service are:
   
-  Easily create new projects using templates for Amazon EC2, AWS Elastic Beanstalk, or AWS Lambda using five different programming languages; JavaScript, Java, Python, Ruby, and PHP. By selecting a template, the service will provision the underlying AWS services needed for your project and application.
-  Unified experience for access and security policies management for your entire software team. Projects are automatically configured with appropriate IAM access policies to ensure a secure application environment.
-  Pre-configured project management dashboard for tracking various activities, such as code commits, build results, deployment activity and more.
-  Running sample code to help you get up and running quickly enabling you to use your favorite IDEs, like Visual Studio, Eclipse, or any code editor that supports Git.
-  Automated configuration of a continuous delivery pipeline for each project using AWS CodeCommit, AWS CodeBuild, AWS CodePipeline, and AWS CodeDeploy.
-  Integration with Atlassian JIRA Software for issue management and tracking directly from the AWS CodeStar console
+  - Easily create new projects using templates for Amazon EC2, AWS Elastic Beanstalk, or AWS Lambda using five different programming languages; JavaScript, Java, Python, Ruby, and PHP. By selecting a template, the service will provision the underlying AWS services needed for your project and application.
+  
+  - Unified experience for access and security policies management for your entire software team. Projects are automatically configured with appropriate IAM access policies to ensure a secure application environment.
+  
+  - Pre-configured project management dashboard for tracking various activities, such as code commits, build results, deployment activity and more.
+  
+  - Running sample code to help you get up and running quickly enabling you to use your favorite IDEs, like Visual Studio, Eclipse, or any code editor that supports Git.
+  
+  - Automated configuration of a continuous delivery pipeline for each project using AWS CodeCommit, AWS CodeBuild, AWS CodePipeline, and AWS CodeDeploy.
+  
+  - Integration with Atlassian JIRA Software for issue management and tracking directly from the AWS CodeStar console
+  
   With AWS CodeStar, development teams can build an agile software development workflow that not only increases the speed in which teams can deploy software and bug fixes, but also enables developers to build software that is more inline with customers’ requests and needs
     
 
