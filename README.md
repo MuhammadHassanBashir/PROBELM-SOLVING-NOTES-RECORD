@@ -3873,8 +3873,34 @@ AWS CodeStar
   
   With AWS CodeStar, development teams can build an agile software development workflow that not only increases the speed in which teams can deploy software and bug fixes, but also enables developers to build software that is more inline with customers’ requests and needs
     
-
-
+## Identity base policy can attach with (users,groups and role it cannot directly attach with aws service) but resource base policy can directly attach with AWS services.
+    
+    Yes, your understanding is correct! Here's a clearer breakdown to confirm and simplify your explanation:
+    
+    Identity-Based Policies:
+    What are they?
+    Policies that are attached to IAM users, groups, or roles to grant them permissions.
+    Can they attach directly to AWS services?
+    No, identity-based policies cannot be directly attached to an AWS service.
+    Instead, you attach them to an IAM role, and then that role can be assigned to the AWS service (e.g., an EC2 instance or Lambda function).
+    Resource-Based Policies:
+    What are they?
+    Policies that are directly attached to an AWS resource (like an S3 bucket, SNS topic, or SQS queue).
+    Can they attach directly to AWS services?
+    Yes, resource-based policies are directly attached to AWS resources. For example:
+    S3 bucket policies
+    KMS key policies
+    SNS topic policies
+    Key Difference:
+    Identity-Based Policies:
+    Attach to IAM identities (users, groups, or roles).
+    Require a role to mediate between the AWS service and the identity.
+    Resource-Based Policies:
+    Attach directly to an AWS resource.
+    No need for a separate role.
+    Your Statement:
+    "Identity-based IAM policies can be attached to users, groups, or IAM roles but cannot be directly attached to an AWS service."
+    "Resource-based IAM policies can be directly attached to AWS services."
 
 
                   
