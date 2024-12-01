@@ -3851,6 +3851,21 @@ Sidecar
     -----
     
     create an aws account>root user email address(give email), AWS account name(give account name)>verify email address(now check email and verify email address. and get verfication code from email use this in next page, it will verify your email)>select personal use , give your address information>here you need to give your atm card information, it will basically verifying that card account no is correct or not.> next you need to give you phone na and enter correct capacha,(aws will send verfication code on your mobile.) you that code here>next select aws basic plan, now it will open the aws console..
+
+AWS CodeStar
+-----------
+  
+  AWS CodeStar is a cloud service designed to make it easier to develop, build, and deploy applications on AWS by simplifying the setup of your entire development project. AWS CodeStar includes project templates for common development platforms to enable provisioning of projects and resources for coding, building, testing, deploying, and running your software project.
+  
+  The key benefits of the AWS CodeStar service are:
+  
+  Easily create new projects using templates for Amazon EC2, AWS Elastic Beanstalk, or AWS Lambda using five different programming languages; JavaScript, Java, Python, Ruby, and PHP. By selecting a template, the service will provision the underlying AWS services needed for your project and application.
+  Unified experience for access and security policies management for your entire software team. Projects are automatically configured with appropriate IAM access policies to ensure a secure application environment.
+  Pre-configured project management dashboard for tracking various activities, such as code commits, build results, deployment activity and more.
+  Running sample code to help you get up and running quickly enabling you to use your favorite IDEs, like Visual Studio, Eclipse, or any code editor that supports Git.
+  Automated configuration of a continuous delivery pipeline for each project using AWS CodeCommit, AWS CodeBuild, AWS CodePipeline, and AWS CodeDeploy.
+  Integration with Atlassian JIRA Software for issue management and tracking directly from the AWS CodeStar console
+  With AWS CodeStar, development teams can build an agile software development workflow that not only increases the speed in which teams can deploy software and bug fixes, but also enables developers to build software that is more inline with customers’ requests and needs
     
 
 
