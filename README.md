@@ -3979,10 +3979,54 @@ like:
     - or agr ap dekhna chahty hn k terraform apky cloud k sath container ma sa connect ha k ni, because container k under sa terraform na cloud ma resource ko provision krna ha..  then ap bucket list ki command use ker k verify ker sakhty hn **gsutils**. is sa apko verify hojye ga k container cloud k sath connect ha, so agr connect ha tu wo baki resources b provision ker lye ga..  
     
   
-  
+## PGBOUNCER MODES
 
-
-
-                  
-                  
-                   
+      PgBouncer, a lightweight PostgreSQL connection pooler, operates in three primary pooling modes that define how client connections interact with database server connections. Here’s an overview of each mode:
+      
+      1. Session Pooling
+      Description: Each client connection gets a dedicated server connection for the duration of the session.
+      Behavior:
+      When a client connects, PgBouncer assigns a database connection that remains reserved until the client disconnects.
+      Once the client disconnects, the database connection returns to the pool.
+      Use Case: Best suited for applications with long-running sessions or that rely heavily on session-level features like prepared statements or temporary tables.
+      
+      3. Transaction Pooling
+      Description: Each client connection gets a server connection only for the duration of a transaction.
+      Behavior:
+      After a transaction completes, the database connection is returned to the pool immediately.
+      Between transactions, the client connection is idle, but it doesn't hold a server connection.
+      Limitations:
+      Features like session-based prepared statements, advisory locks, and temporary tables are not supported since the server connection is reset after each transaction.
+      Use Case: Best for applications with short-lived transactions and stateless interactions with the database.
+      
+      5. Statement Pooling
+      Description: Each client connection gets a server connection only for the execution of a single SQL statement.
+      Behavior:
+      After executing the statement, the connection is returned to the pool immediately.
+      Limitations:
+      Features requiring session or transaction contexts (e.g., multi-statement transactions, cursors, prepared statements) are not supported.
+      Use Case: Ideal for applications where every query is independent, such as read-heavy analytics workloads or specific APIs.
+      Choosing the Right Mode:
+      The mode you choose depends on your application's requirements:
+      
+      Session Pooling: For applications requiring persistent session state.
+      Transaction Pooling: For most modern web applications that can handle stateless behavior.
+      Statement Pooling: For use cases with completely independent single statements.
+      You can configure the pooling mode in the PgBouncer configuration file (pgbouncer.ini) by setting:
+      
+      
+      pool_mode = <session|transaction|statement>
+      Replace <session|transaction|statement> with your desired pooling mode.
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+                        
+                        
+                         
