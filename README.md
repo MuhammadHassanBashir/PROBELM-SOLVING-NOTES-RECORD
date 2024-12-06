@@ -4018,7 +4018,72 @@ like:
       pool_mode = <session|transaction|statement>
       Replace <session|transaction|statement> with your desired pooling mode.
       
-      
+
+## Bash scripting provides several types of loops to handle repetitive tasks. Here’s a list of the main loops available in bash scripts:
+
+    1. for Loop
+    Iterates over a list of items or a range of numbers.
+    
+    # Loop through a list
+    for item in apple banana cherry; do
+      echo "Fruit: $item"
+    done
+
+    # Loop through a range
+    for i in {1..5}; do
+      echo "Number: $i"
+    done
+
+    2. while Loop
+    Repeats as long as a condition is true.
+    
+    count=1
+    while [ $count -le 5 ]; do
+      echo "Count: $count"
+      count=$((count + 1))
+    done
+
+    3. until Loop
+    Repeats until a condition becomes true (opposite of while).
+    
+    count=1
+    until [ $count -gt 5 ]; do
+      echo "Count: $count"
+      count=$((count + 1))
+    done
+
+    4. select Loop
+    Used for creating menus in a script, allowing a user to choose an option.
+    
+    PS3="Choose a fruit: "
+    select fruit in apple banana cherry; do
+      echo "You selected: $fruit"
+      break
+    done
+    
+    5. Infinite Loop
+    Created using while true or for (( ; ; )) to run indefinitely until explicitly stopped.
+    
+    # Infinite while loop
+    while true; do
+      echo "Running..."
+      sleep 1
+    done
+
+    # Infinite for loop
+    for (( ; ; )); do
+      echo "This goes on forever!"
+      sleep 1
+    done
+    Summary of Loops:
+    Loop Type	Purpose
+    for	Iterate over a list or range of values.
+    while	Execute as long as a condition is true.
+    until	Execute until a condition becomes true.
+    select	Build interactive menus.
+    Infinite	Run indefinitely (requires manual break).
+    Each loop serves a specific purpose, and you can choose the one that best fits your use case! Would you like examples for a specific scenario?
+          
       
       
       
