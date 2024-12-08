@@ -4258,15 +4258,83 @@ like:
       String: Formatting a hostname (host123.domain.com) dynamically based on variables.
       Integer: Calculating the total size of disk space or creating loops based on numbers.
       Let me know if you'd like help with a specific example! 😊
+
+## How to clone code commit repo on local terminal
+    
+    To clone a repository from AWS CodeCommit, follow these steps:
+    
+    1. Prerequisites
+    Before cloning the repository, ensure the following:
+    
+    AWS CLI is Installed and Configured:
+    
+    Install AWS CLI:
+    
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+    
+    Configure AWS CLI with your credentials:
+    
+    aws configure
+    Enter:
+    Access Key ID
+    Secret Access Key
+    Default region (e.g., us-east-1)
+    Default output format (e.g., json)
+    
+    Git is Installed:
+    
+    Install Git:
+    
+    sudo apt install git -y  # For Debian-based systems
+    sudo yum install git -y  # For RHEL-based systems
+    
+    IAM Permissions:
+    
+    Ensure your IAM user/role has the AWSCodeCommitReadOnly or AWSCodeCommitFullAccess policy.
+    
+    SSH Key or HTTPS Access:
+    
+    For SSH Access:
+    generate and Add your SSH public key to AWS CodeCommit via the IAM Console under Security Credentials.
+    
+    command to generate public ssh key: ssh-keygen -t rsa -b 4096 -C "your_email@example.com" 
+
+    now copied public key and add your ssh public key to aws codecommit via the IAM Console under Security Credentials.
+
+    for this copied public key , then go to IAM user > security credentials > SSH public keys for AWS CodeCommit and upload ssh public key here,
+
+    For HTTPS Access:
+    Use AWS CLI-generated credentials or configure Git credentials.
+    
+    2. Clone the Repository
+    Option 1: Using HTTPS
+    Get the repository URL:
+    
+    Go to the AWS Management Console → CodeCommit → Open your repository → Copy the HTTPS URL.
+    
+    Run the clone command:
+    
+    
+    git clone https://git-codecommit.<region>.amazonaws.com/v1/repos/<repository-name>
+    Replace:
+    
+    <region>: The AWS region where the repository is hosted (e.g., us-east-1).
+    <repository-name>: Your repository name.
+    If prompted, enter your username and password:
+    
+    Username: AWS
+    Password: Your IAM credentials or AWS CLI credentials.
+                    
                 
-            
-            
-            
-            
-            
-            
-            
-            
-                              
+                
+                
+                
+                
+                
+                
+                
+                                  
                               
                                
