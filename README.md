@@ -4345,7 +4345,7 @@ like:
     
     2- now copy/send public key to the target(remote) server.
     
-      ssh-copy-id "remote-server-user(root)@ip-address"
+      ssh-copy-id "remote-server-user(root)@ip-address"             ---> it will Copy the contents of ~/.ssh/id_rsa.pub to the ~/.ssh/authorized_keys file on the remote VM. jis sa remote vm apny teminal ko trust samjy ga..
     
       it will copy the public key to the remote server and will ask remote server password at once.  because you are making changes on remote server.
     
