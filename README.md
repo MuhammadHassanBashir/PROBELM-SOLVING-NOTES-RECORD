@@ -4333,8 +4333,31 @@ like:
     
     Username: AWS
     Password: Your IAM credentials or AWS CLI credentials.
-                    
-                
+
+
+## HOw to get passwordless access of remote vm
+
+1- create key on local terminal
+
+  ssh-keygen        
+
+  it will create 2 keys public and private             
+
+2- now copy/send public key to the target(remote) server.
+
+  ssh-copy-id "remote-server-user(root)@ip-address"
+
+  it will copy the public key to the remote server and will ask remote server password at once.  because you are making changes on remote server.
+
+3- after that you just use remote user and ip-address during ssh everytime.
+
+  like:
+
+  ssh user-name@ip-address
+
+  
+
+
                 
                 
                 
